@@ -103,7 +103,7 @@ async def main():
     result = await Runner.run(
         math_teacher,
         "2 + 2",
-        RunConfig(input_guardrails=[MathInputGuard()])  # Extra guard
+        RunConfig(input_guardrails=[MathInputGuard()])  
     )
     print(f"Math Test 1: {result}")
 
