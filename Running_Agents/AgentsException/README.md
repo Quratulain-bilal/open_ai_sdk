@@ -3,9 +3,7 @@
 Generic base class hai. Aap isay sab exceptions ke liye use kar sakte ho, agar specific exception catch na karni ho.
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.exceptions import AgentsException
 
 try:
@@ -17,9 +15,7 @@ except AgentsException as e:
 Jab agent too many turns (loops) chalata hai, aur max_turns limit exceed kar deta hai.
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.exceptions import MaxTurnsExceeded
 
 try:
@@ -33,9 +29,7 @@ except MaxTurnsExceeded:
 Model ne invalid output diya, e.g. galat JSON ya tool ka naam jo exist hi nahi karta.
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.exceptions import ModelBehaviorError
 
 try:
@@ -47,9 +41,7 @@ except ModelBehaviorError as e:
 Jab developer (aap) SDK ka galat use kare.
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.exceptions import UserError
 
 try:
@@ -63,9 +55,7 @@ except UserError as e:
 Jab input violate karta hai guardrail rule.
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.guardrails import InputGuardrail
 from agents.exceptions import InputGuardrailTripwireTriggered
 
@@ -86,9 +76,7 @@ except InputGuardrailTripwireTriggered as e:
 Jab model ka output violate karta hai guardrail rule (e.g. private info).
 
 ✅ Code Example:
-python
-Copy
-Edit
+
 from agents.guardrails import OutputGuardrail
 from agents.exceptions import OutputGuardrailTripwireTriggered
 
