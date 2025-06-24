@@ -1,20 +1,4 @@
 Runner.run() Method Overview
-python
-Copy
-Edit
-@classmethod
-async def run(
-    cls,
-    starting_agent: Agent[TContext],
-    input: str | list[TResponseInputItem],
-    *,
-    context: TContext | None = None,
-    max_turns: int = DEFAULT_MAX_TURNS,
-    hooks: RunHooks[TContext] | None = None,
-    run_config: RunConfig | None = None,
-    previous_response_id: str | None = None,
-) -> RunResult
-🎯 Goal:
 Ye method ek AI workflow start karta hai using agent. Har parameter is journey ka ek important role play karta hai.
 
 🧩 1. starting_agent
