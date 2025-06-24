@@ -2,11 +2,7 @@
 Jab aap Runner.run() ya Runner.run_sync() call karte ho, aap aik logical user turn ko represent kar rahe ho — jismein multiple agents, tool calls, aur even handoffs ho sakte hain.
 
 Yani:
-
-perl
-Copy
-Edit
-Ek `run()` = ek logical user conversation turn 
+ `run()` = ek logical user conversation turn 
 (jismein agents ka kaam, tools ka use, handoffs — sab shamil ho sakta hai)
 🔁 Inner Lifecycle: From Start to End (Conversation Turn)
 ✅ Step 1: User Turn Starts
@@ -14,9 +10,7 @@ User ne koi text input kiya (e.g. “What’s the weather in Lahore?”).
 
 Aap Runner.run() method call karte ho with this input.
 
-python
-Copy
-Edit
+
 response = await Runner.run(starting_agent=my_agent, input="What's the weather in Lahore?")
 ✅ Step 2: First Agent Invokes LLM
 Starting agent receives user input.
@@ -76,9 +70,7 @@ Har turn → Runner.run() ka ek naya call
 🔸 Method: .to_input_list()
 You can use the previous RunResult to get context for the next turn:
 
-python
-Copy
-Edit
+
 new_inputs = previous_result.to_input_list()
 response = await Runner.run(agent, input=new_inputs + ["Now translate this."])
 🧠 Ye ensure karta hai ke conversation context maintain ho, just like a normal chat.
@@ -90,9 +82,7 @@ Aap sirf final_output show kar saktay ho.
 
 Ya sab steps, tool outputs, and messages bhi show kar saktay ho for debugging.
 
-python
-Copy
-Edit
+
 print(response.final_output)               # Simple answer
 print(response.all_messages)               # Full log (if needed)
 🧱 Summary Table: Conversation Thread Lifecycle
