@@ -1,4 +1,4 @@
-🔷 Background: Tools in Agents SDK
+🔷  Tools in Agents SDK
 Agents SDK mein tools woh functions hain jinhein aap LLM ko use karne dete ho — for real-world data fetching, calculations, etc.
 
 Lekin... by default, jab aap tool dete ho, LLM ka choice hota hai ke wo tool ko call kare ya nahi. Iska matlab:
@@ -122,9 +122,7 @@ LLM (if behavior = default)
 Or Direct to user (if stop_on_first_tool)
 
 💡 Pro Tip: Use tool_choice = "tool_name" for Precision
-python
-Copy
-Edit
+
 model_settings = ModelSettings(tool_choice="weather_lookup")
 Yani sirf ye tool allowed hai, aur LLM kisi aur ka naam bhi le to error.
 
