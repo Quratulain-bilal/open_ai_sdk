@@ -15,9 +15,7 @@ LLM ka thinking pattern inhi pe depend karta hai.
 ✅ Fixed Instructions (Normal Tarika)
 Aap direct prompt de dete ho Agent create karte waqt:
 
-python
-Copy
-Edit
+
 agent = Agent(
     name="Helper",
     instructions="You are a helpful assistant.",
@@ -48,9 +46,7 @@ Location, language, settings etc.
 Let’s break it down step by step:
 
 ✅ Step 1: Agent receives dynamic function instead of static string
-python
-Copy
-Edit
+
 def dynamic_instructions(agent, context):
     if context.get("user") == "admin":
         return "You are a professional assistant. Respond formally."
@@ -72,9 +68,7 @@ SDK checks: Is it a str or a function?
 If function → call it at runtime with agent & context.
 
 ✅ Step 2: You run the agent using Runner
-python
-Copy
-Edit
+
 Runner.run_sync(agent, input="Hello!", context={"user": "admin"})
 ✅ Step 3: Instructions Function Gets Called Dynamically
 Under the hood:
@@ -83,9 +77,7 @@ agent.instructions(agent, context) is invoked.
 
 Jo return aata hai, wo final prompt ban jata hai.
 
-python
-Copy
-Edit
+
 # Internally:
 instructions_prompt = agent.instructions(agent, context)
 This prompt is passed to the LLM along with input.
@@ -99,9 +91,7 @@ So agar context mein user = "Ali" ho, the prompt might be:
 
 ✅ Step 5: Output Generated → User gets context-aware answer
 📊 Visual Flow (Mentally)
-text
-Copy
-Edit
+
 [Runner.run()] 
    ↓
 [Agent receives input + context]
@@ -121,9 +111,7 @@ Scenario	Dynamic Behavior
 ⚙️ Advanced Version – Async Function as Instructions
 Instructions function async bhi ho sakti hai:
 
-python
-Copy
-Edit
+
 async def dynamic_instructions(agent, context):
     user_type = await get_user_type_from_api(context["user_id"])
     return f"You are a bot for a {user_type} user."
