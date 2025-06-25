@@ -59,16 +59,11 @@ Runner.run_sync(
 ✅ Step 3: Agent accesses context
 Agar aap agent ke andar dynamic_instructions ya tools mein ho, to aapko context milta hai via:
 
-python
-Copy
-Edit
+
 def dynamic_instructions(agent, context):
     if context["role"] == "admin":
         return "Speak formally."
 ✅ Step 4: Tool function gets context via RunContextWrapper
-python
-Copy
-Edit
 @function_tool()
 def get_user_name(ctx: RunContextWrapper[dict]) -> str:
     return f"Hello, {ctx.context['user_name']}!"
@@ -91,10 +86,7 @@ Dynamic greetings	"user_name": "Ali"
 Personalization	"theme": "dark", "timezone": "PKT"
 Live app state	"session_id": "abc123"
 
-🧬 Inner Mechanism: How Context Internally Flows
-text
-Copy
-Edit
+🧬 Inner Mechanism: How Context Internally Flow
 [You call Runner.run(..., context=your_context)]
         ↓
 [Context is passed to agent.invoke(...)]
@@ -107,9 +99,7 @@ Edit
 🧪 Agent Generic Context Type
 Agents can be generic like:
 
-python
-Copy
-Edit
+
 Agent[dict]  # if using dictionary
 Agent[MyAppContext]  # if using custom class
 This makes SDK:
