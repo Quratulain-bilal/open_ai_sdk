@@ -1,5 +1,6 @@
 
 🔹 1. name_override
+
 ✅ Kya karta hai?
 Is parameter se aap apne function ka tool name manually specify kar sakte ho.
 
@@ -10,6 +11,8 @@ Normally, function ka naam hi tool ka naam ban jaata hai. Agar aap name_override
 Agar multiple functions ka logic same hai lekin docstring style alag hai (jaise testing ke liye), to aap sabko ek hi name_override dekar ek naam se tool bana sakte ho.
 
 🔹 2. description_override
+
+
 ✅ Kya karta hai?
 Aap manually tool ka description provide kar sakte ho, jo LLM ko samjhata hai ke tool kya karta hai.
 
@@ -20,6 +23,8 @@ Agar aap docstring se description lena nahi chahte ya aapka function description
 Docstring short ho ya specific instructions chahiye ho to manual override kaam aata hai.
 
 🔹 3. use_docstring_info
+
+
 ✅ Default: True
 
 Agar aap chahte hain ke SDK aapki docstring se tool ke parameters, types, aur return value extract kare to ise True rakhein.
@@ -29,6 +34,8 @@ Agar aap manually name_override, description_override, ya dusre metadata de rahe
 Agar aap apni docstring follow nahi kar rahe ya custom info chahiye ho.
 
 🔹 4. docstring_style
+
+
 ✅ Options:
 "google"
 
@@ -45,12 +52,17 @@ Correct format specify karna zaroori hai taake LLM accurate schema samajh sake.
 🔹 5. hidden
 ✅ Default: False
 
+
+
 Agar aap tool ko LLM ke samne hide karna chahte ho (means wo suggestable na ho), to hidden=True kar dein. Tool backend mein available hoga, lekin LLM ko nahi dikhai dega.
 
 🔧 Use Case:
 Sensitive tools ya internal-only tools ko expose nahi karna ho.
 
 🔹 6. manual_schema
+
+
+
 ✅ Kya karta hai?
 Yeh allow karta hai ke aap function ka OpenAI-style JSON schema manually define karo.
 
@@ -60,5 +72,7 @@ Normally SDK khud schema bana deta hai, lekin agar aapko poora schema control ka
 Advance use cases jahan SDK ke auto-generated schema se kaam na chale.
 
 🔹 7. tool_config
+
+
 ✅ Kya karta hai?
 Yeh tool ke liye advanced configuration deta hai — jaise ki tool_choice, parallel, stop_on_first_tool, etc. Lekin zyada use Agent() level par hota hai.
