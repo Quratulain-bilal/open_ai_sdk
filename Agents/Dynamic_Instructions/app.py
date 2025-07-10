@@ -8,7 +8,7 @@ from dataclasses import dataclass
 load_dotenv()
 set_tracing_disabled(True)
 
-API_KEY = "AIzaSyCSDFxp7bE4rgUwdMK4t4bTQg7R7xqnAxA"
+API_KEY = GEMINI_API_KEY"
 if not API_KEY:
     raise ValueError("API key not found!")
 
