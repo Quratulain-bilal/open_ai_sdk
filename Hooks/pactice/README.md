@@ -1,4 +1,4 @@
-✅ Coding + Theoretical Questions on OpenAI Agents SDK (Hooks Focused)
+✅ Coding + Theoretical Questions on OpenAI Agents SDK 
 
 1. What design principle allows RunHooks to work even if not explicitly defined?
 2. Why are hook method parameters strictly positional, not keyword-based?
