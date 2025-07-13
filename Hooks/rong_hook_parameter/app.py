@@ -11,7 +11,7 @@ class MyContext(BaseModel):
 agent_a = Agent(name="Agent A", instructions="Test A", model=None)
 agent_b = Agent(name="Agent B", instructions="Test B", model=None)
 
-# ❌ Wrong order: to_agent, context, from_agent (This will break)
+#  Wrong order: to_agent, context, from_agent (This will break)
 @dataclass
 class BrokenHook(AgentHooks[MyContext]):
     async def on_handoff(
