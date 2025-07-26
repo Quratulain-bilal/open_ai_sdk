@@ -1,0 +1,72 @@
+
+from agents.handoffs import Handoff
+from pydantic import BaseModel
+import asyncio
+from agents import Agent, Runner, OpenAIChatCompletionsModel, set_tracing_disabled, handoff, RunConfig,RunContextWrapper
+from openai import AsyncOpenAI
+from dotenv import load_dotenv
+from rich import print
+import os
+import asyncio
+
+
+
+load_dotenv()
+set_tracing_disabled(disabled=True)
+
+API_KEY=os.environ.get("GEMINI_API_KEY")
+
+config = RunConfig(
+    model=OpenAIChatCompletionsModel(
+        model="gemini-2.0-flash",
+        openai_client=AsyncOpenAI(
+            api_key=API_KEY,
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai"
+        )
+    )
+)
+
+
+
+# Step 1: Define input type
+class MyInput(BaseModel):
+    question: str
+    subject: str
+
+# Step 2: Create agent that will receive handoff
+math_agent = Agent(
+    name="MathAgent",
+    instructions="Answer math-related questions.",
+    handoff_description="Handles complex math queries."
+)
+
+# Step 3: Define handoff handler
+def handle_handoff(ctx: RunContextWrapper, input: MyInput):
+    print(f"\n📢 Handoff triggered!")
+    print(f"🧮 Question: {input.question}")
+    print(f"📘 Subject: {input.subject}")
+
+# Step 4: Create handoff instance with input type
+handoff_instance = handoff(
+    agent=math_agent,
+    on_handoff=handle_handoff,
+    input_type=MyInput  # 👈 This tells it to expect structured input
+)
+
+# Step 5: Create a main agent that will do the handoff
+triage_agent = Agent(
+    name="Triage",
+    instructions="Pass math questions to MathAgent.",
+    handoffs=[handoff_instance]
+)
+
+# Step 6: Run the runner
+async def main():
+    result = await Runner.run(
+        starting_agent=triage_agent,
+        input="What is integration in calculus?",
+        run_config=config
+    )
+    print(f"\n✅ Final Output:\n{result.final_output}")
+
+asyncio.run(main())
