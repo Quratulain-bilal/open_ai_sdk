@@ -1,4 +1,4 @@
-🔐 Input Filter in Handoff – Complete Roman Urdu Guide
+🔐 Input Filter in Handoff 
 🧠 1. Input Filter kya hota hai?
 ➤ Handoff:
 Jab ek agent kisi task ko khud perform nahi karta aur doosray agent ko deta hai, to isay handoff kehte hain.
