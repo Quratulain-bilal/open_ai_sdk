@@ -23,7 +23,7 @@ regular_pizza_agent = base_agent.clone(
     name="RegularPizzaAgent"
 )
 
-#   Party Pizza agent (bulk orders)
+#   Pizza agent (bulk orders)
 party_pizza_agent = base_agent.clone(
     name="PartyPizzaAgent",
     instructions="You are a pizza assistant specialized in large/bulk orders for events. Suggest combos and discounts."
@@ -41,3 +41,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
