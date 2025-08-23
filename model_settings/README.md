@@ -233,4 +233,5 @@ tool_choice	Tool use kare ya nahi
 parallel_tool_calls	Multiple tools ek saath call ho
 truncation	Purani messages truncate karni ya nahi
 max_tokens	Output ki length limit
+
 reasoning	Logic-based reasoning config
