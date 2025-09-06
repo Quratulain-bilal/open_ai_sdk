@@ -1,0 +1,39 @@
+Explain the role of _is_wrapped in AgentOutputSchema. Why is it required for custom classes but not for Pydantic models?
+
+How does validate_json() behave when the input JSON contains extra fields, in both strict and non-strict schema modes?
+
+What is the difference between is_plain_text() returning True and False? Give examples.
+
+How does TypeAdapter internally convert and validate JSON strings in validate_json()?
+
+What is the behavior of json_schema() when the output type is str versus when it is a Pydantic model?
+
+What happens if a wrapped custom class (_is_wrapped=True) receives an unwrapped JSON object from the LLM and you call validate_json()?
+
+How does AgentOutputSchema ensure compatibility and consistency when switching from plain text to structured output?
+
+How does strict_json_schema=True enforce constraints on JSON fields, and how is this different from non-strict mode?
+
+When using AgentOutputSchema with a Pydantic model, how does name() differ from is_plain_text() in terms of the information it provides?
+
+Why is it optional to use AgentOutputSchema for plain text outputs, but mandatory for structured outputs?
+
+How does validate_json() handle missing required fields in JSON, and what kind of error is raised?
+
+Explain the difference in the Python object returned by validate_json() for strict vs non-strict modes when extra fields exist.
+
+If you pass a Pydantic model to AgentOutputSchema, why is _is_wrapped set to False and what would break if it were True?
+
+What is the effect of calling json_schema() on a plain text schema, and why is it mostly meaningless?
+
+How does AgentOutputSchema interact with an agent’s output to provide predictable structured data for downstream code?
+
+Explain a scenario where is_plain_text() returns False even though the output seems simple (e.g., a single-field Pydantic model).
+
+How do the five methods (name(), is_plain_text(), is_strict_json_schema(), json_schema(), validate_json()) interact when an LLM produces structured output?
+
+How would you debug a validation failure in validate_json() when using a wrapped custom class?
+
+What happens if validate_json() is called with invalid JSON syntax, regardless of schema mode?
+
+How does AgentOutputSchema help maintain a uniform interface for both plain text and structured outputs in multi-agent pipelines?
