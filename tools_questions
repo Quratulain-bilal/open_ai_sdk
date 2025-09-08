@@ -40,6 +40,3 @@ If a function tool is defined without a docstring and without type annotations o
 
 If a tool-agent is configured to recursively call itself via .as_tool and Runner.run, what safeguards exist against infinite recursion? Is max_turns sufficient, or should additional mechanisms be implemented?
 
-⚡ These are extremely advanced, tricky, edge-case questions that test not just knowledge of the docs, but also deep reasoning about SDK internals and runtime behavior.
-
-Do you want me to also make the answers + explanations for these (like a solved exam), or just keep them as a hard test set?
