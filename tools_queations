@@ -1,0 +1,45 @@
+Tools
+
+If you convert an Agent into a tool using .as_tool and provide a custom_output_extractor that fails to find any valid output in the RunResult, what exactly will be returned to the orchestrator agent, and why?
+
+When running Runner.run inside a function tool with max_turns=5, how are these turns counted relative to the parent orchestrator agent’s own max_turns setting? Do they share a global limit or remain independent?
+
+If an is_enabled parameter is defined as an async function but throws an exception during evaluation, what happens to the tool at runtime? Is it silently disabled, or does the error propagate and crash execution?
+
+Consider a function tool whose arguments include a deeply nested TypedDict. How does the Agents SDK generate the JSON schema for this structure, and what happens if the function docstring does not provide any descriptions?
+
+What is the subtle difference in error handling between failure_error_function and the default default_tool_error_function when a tool call fails due to invalid JSON schema versus user code exceptions?
+
+Suppose an orchestrator agent is instructed to “always call ALL tools,” but the LLM only calls one tool. How will this discrepancy be reflected in the RunResult.new_items collection?
+
+If a tool-agent uses a custom_output_extractor that accidentally returns malformed data (e.g., invalid JSON while JSON is expected), how is the orchestrator’s final_output affected?
+
+What are the automatic behaviors provided when using @function_tool compared to manually constructing a FunctionTool object? Which responsibilities remain manual in the latter case?
+
+If a tool’s is_enabled setting depends on a mutable runtime object in context, and that object changes during execution, will the SDK re-evaluate tool availability mid-turn or only once at the start of the run?
+
+In an orchestrator with three tools and max_turns=2, if the first tool call internally triggers Runner.run consuming three turns, does the orchestrator still respect its own max_turns=2 or allow overflow due to nested calls?
+
+When generating tool schema automatically, how is a function parameter with type str | None = None represented in JSON schema, and what impact occurs if no docstring explanation is provided?
+
+If a function_tool explicitly sets failure_error_function=None and then raises an exception, how is the error propagated? At which layer does the exception surface?
+
+When converting an agent into a tool using .as_tool without specifying tool_name or tool_description, what default values are used, and which class is responsible for generating them?
+
+What happens if an async tool function contains a blocking operation without await? How does the Agents SDK handle such blocking code during execution?
+
+Suppose you want to persist part of a tool’s output into the run context while also passing a different formatted version of it to the orchestrator’s final output. Which mechanism is most appropriate: custom_output_extractor, RunContextWrapper, or hacking failure_error_function? Justify.
+
+If an agent’s instructions explicitly say “never call tools,” but tools are still configured on that agent, how does the SDK enforce or ignore this instruction? Does the SDK prevent calls, or is enforcement purely at the LLM level?
+
+If a developer manually creates a FunctionTool with an invalid params_json_schema, at what stage will the error occur: tool creation, agent initialization, or at the moment of tool invocation?
+
+If a tool is disabled via is_enabled=False, is it completely hidden from the LLM’s prompt, or is it still visible but rejected at runtime? Can the LLM ever become aware of disabled tools?
+
+If a function tool is defined without a docstring and without type annotations on its arguments, how does the SDK generate the schema? Does it fallback to treating arguments as generic strings, or does it raise an error?
+
+If a tool-agent is configured to recursively call itself via .as_tool and Runner.run, what safeguards exist against infinite recursion? Is max_turns sufficient, or should additional mechanisms be implemented?
+
+⚡ These are extremely advanced, tricky, edge-case questions that test not just knowledge of the docs, but also deep reasoning about SDK internals and runtime behavior.
+
+Do you want me to also make the answers + explanations for these (like a solved exam), or just keep them as a hard test set?
