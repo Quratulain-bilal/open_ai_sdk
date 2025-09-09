@@ -1,7 +1,6 @@
-# 🚀 ULTIMATE PROMPT ENGINEERING GUIDE (Roman Urdu Mein)  
-*(Beginner se Lekar PRO Tak — Har Cheez Detail Mein!)*
+# 🚀 ULTIMATE PROMPT ENGINEERING GUIDE (Roman Urdu Mein) 
 
-> _"Prompt Engineering sirf 'instructions dena' nahi — ye ek art hai, science hai, aur ek superpower hai!"_
+> _"Prompt Engineering sirf 'instructions dena' nahi  ye ek art hai, science hai, aur ek superpower hai!"
 
 Agar aap ne socha hai ke Prompt Engineering sirf "Temperature aur Few-Shot" tak limited hai — to aap bilkul galat hain! Aaj ke zamane mein, **top companies aur AI researchers** ne itni advanced techniques develop kar li hain ke aap AI ko **detective, scientist, ya apna personal assistant** bana sakte hain!
 
@@ -11,9 +10,9 @@ Chaliye, shuru karte hain!
 
 ---
 
-## 📚 1. Prompt Engineering Kya Hai? (Phir Se, Lekin Zara Deep Mein!)
+## 📚 1. Prompt Engineering Kya Hai? 
 
-**Prompt = Hukum** jo aap AI ko dete hain.  
+**Prompt = Hukum* jo aap AI ko dete hain.  
 **Engineering = Is hukum ko itna achha banana** ke AI bilkul wohi kare jo aap chahte hain — na zyada, na kam!
 
 - **LLM (Large Language Model)**: AI ka dimagh — jo internet ki sab cheezon ko padh kar seekha hai. *(Jaise koi bacha jo library ki sab kitabein parh kar sab kuch yaad kar leta hai!)*
@@ -48,7 +47,7 @@ Chaliye, shuru karte hain!
 
 ## 🛠️ 3. Prompting Techniques (AI Ko Kaise Samjhain? — FULL LIST!)
 
-### 1. Zero-Shot (Seedha Poocho!)
+### 1. Zero-Shot 
 Bina kisi example ke, direct sawal poocho.
 
 > **Prompt**:  
@@ -57,7 +56,7 @@ Bina kisi example ke, direct sawal poocho.
 
 ---
 
-### 2. Few-Shot (Pehle Dikhao, Phir Karwao!)
+### 2. Few-Shot 
 3-5 examples dikhao — AI pattern samajh jata hai.
 
 > **Prompt**:  
@@ -85,7 +84,7 @@ Mushkil problems ke liye — AI ko kehna hai: _"Pehle soch, phir jawab do."_
 
 ---
 
-### 4. Step-Back Prompting (Pehle Bada Sawal Poocho!)
+### 4. Step-Back Prompting 
 Pehle general sawal poocho, phir us ka jawab use kar ke specific task karo.
 
 > **Step 1**: `What are the key features of a good smartphone?`  
@@ -112,7 +111,7 @@ AI sochta hai, phir Google search karta hai, phir phir sochta hai.
 
 ---
 
-### 7. Tree of Thoughts (ToT) — "Sab Raaste Socho!"
+### 7. Tree of Thoughts (ToT) 
 AI sirf ek raasta nahi, balki **kai different raaston** par sochta hai — phir best choose karta hai.
 
 > **Example**: _"Best way to learn Python?"_  
@@ -290,10 +289,7 @@ Ek hi prompt mein **CoT + Few-Shot + Role Prompting** combine karo!
 | Skeleton-of-Thought| Long-form content                        | `First, create an outline...`    |
 | Least-to-Most      | Build up complexity                      | `First, explain X. Then, Y...`   |
 
----
 
-## 🚀 Final Tip: Experiment Karo, Document Karo, Repeat Karo!
 
-Prompt Engineering ek **iterative process** hai — matlab aap ko bar-bar try karna hoga, thoda badalna hoga, test karna hoga, aur phir dobara try karna hoga. Lekin jab aap ko sahi formula mil jaye ga — to AI aap ka sab se behtar assistant ban jaye ga!
 
 **Happy Prompting!** 😊🤖
