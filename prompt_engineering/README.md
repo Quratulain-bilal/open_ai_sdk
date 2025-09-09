@@ -397,12 +397,6 @@ AI ko step-by-step build-up milta hai — is se final jawab zyada accurate hota 
 
 ---
 
-## 🚀 FINAL TIP: Experiment Karo, Document Karo, Repeat Karo!
-
-Prompt Engineering ek **iterative process** hai — matlab aap ko bar-bar try karna hoga, thoda badalna hoga, test karna hoga, aur phir dobara try karna hoga. Lekin jab aap ko sahi formula mil jaye ga — to AI aap ka sab se behtar assistant ban jaye ga!
-
-**Happy Prompting!** 😊🤖
-
 ## 📝 5. Summary — Cheat Sheet (Sab Kuch Ek Jagah!)
 
 | Technique          | Kab Use Karein?                          | Magic Phrase                     |
@@ -423,6 +417,7 @@ Prompt Engineering ek **iterative process** hai — matlab aap ko bar-bar try ka
 
 
 **Happy Prompting!** 😊🤖
+
 
 
 
