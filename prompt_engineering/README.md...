@@ -1,399 +1,263 @@
-BEGINNER-FRIENDLY PROMPT ENGINEERING GUIDE — crafted with maximum detail, real-world examples, deep yet simple explanations, and every technique covered (even the ones missing from your original document and most online courses).
-
-This guide is written in mostly English (as requested) with light Roman Urdu for relatability, but every technical term is explained in plain, simple language. No stone is left unturned — from basic prompting to cutting-edge research techniques like Generated Knowledge, Directional Stimulus, Maieutic Prompting, Active Prompting, and more.
-
-🧠 The Ultimate Prompt Engineering Guide
-(For Absolute Beginners — Explained Deeply, Simply, and Practically)
-
-“Prompt Engineering is not magic — it’s the art of asking the right question, in the right way, to get the right answer from an AI.” 
-
-🌟 SECTION 1: What Is Prompt Engineering? (The Foundation)
-💡 Simple Definition:
-Prompt Engineering = Talking to AI in a way it truly understands.
-
-Think of it like giving GPS directions:
-
-❌ Bad: “Go somewhere nice.”
-✅ Good: “Take me to the nearest coffee shop with outdoor seating, within 1 km, that opens before 9 AM.”
-AI (Large Language Models or LLMs) are prediction machines. You give it a starting text (the “prompt”), and it predicts the most likely next word, then the next, and so on — until it forms a full response.
-
-Your job? Set it up so it predicts the right sequence.
-
-⚙️ SECTION 2: Model Settings — The “Dials” You Must Control
-These settings are NOT optional. They dramatically change output quality.
-
-1. 🌡️ Temperature — The “Creativity Knob”
-What it does: Controls randomness in word selection.
-How it works:
-Low temp (0.0–0.3) → AI plays it safe → chooses most probable word → great for facts, code, math.
-High temp (0.7–1.0+) → AI gets wild → picks surprising words → great for stories, jokes, brainstorming.
-Temp = 0 → “Greedy decoding” → always picks #1 most likely word → deterministic (same input = same output).
-Temp > 1 → Chaos mode → all words become equally likely → often leads to nonsense or loops.
-💡 Pro Tip: For ANY task requiring accuracy (math, classification, code) → ALWAYS set Temperature = 0. 
-
-2. 🔝 Top-K & Top-P — The “Idea Filters”
-These limit which words the AI can choose from.
-
-➤ Top-K (e.g., K=20)
-Only considers the top 20 most likely next words.
-Low K (1–10) → Focused, factual.
-High K (50–100) → Creative, varied.
-K=1 → Same as greedy (Temp=0).
-➤ Top-P (a.k.a. Nucleus Sampling, e.g., P=0.9)
-Considers enough top words until their combined probability ≥ 90%.
-Low P (0.1–0.5) → Very focused.
-High P (0.9–1.0) → Very open-ended.
-💡 Pro Tip: Use Top-P = 0.95 and Top-K = 30 as your default starting point. Adjust from there. 
-
-3. 📏 Max Tokens — The “Answer Length Limiter”
-Sets maximum number of tokens (words/pieces) in the response.
-More tokens = slower, more expensive, higher chance of rambling.
-Important: AI doesn’t “try to be short” — it just gets cut off. So ALSO say in your prompt: “Answer in 1 sentence.”
-4. 🔄 Sampling Interaction — How Settings Work Together
-If you use Temp + Top-K + Top-P → AI first filters words using K & P → then applies Temp to pick from that filtered list.
-If Temp = 0 → Top-K & Top-P are IGNORED → always picks #1 word.
-If Top-K = 1 → Temp & Top-P are IGNORED.
-If Top-P = 0 → Only #1 word considered → same as greedy.
-🚨 WARNING: High Temp + High Top-K/P → Risk of “Repetition Loop Bug” → AI gets stuck saying “...and then... and then... and then...” 
-
-🛠️ SECTION 3: Prompting Techniques — The REAL Toolbox (30+ Techniques)
-1. Zero-Shot Prompting — Just Ask!
-No examples. Just your question or instruction.
-Best for simple, common tasks AI already knows.
-Example:
-
-
-1
-Translate "Hello, how are you?" into Urdu.
-✅ Use when: Task is straightforward (translate, summarize, classify). 
-
-2. Few-Shot Prompting — Show, Don’t Just Tell!
-Give 3–5 examples before asking your real question.
-AI learns the pattern → applies it to your input.
-Example:
-
-
-1
-2
-3
-4
-5
-Convert to JSON:
-Example 1: "I want pizza with cheese" → {"food": "pizza", "toppings": ["cheese"]}
-Example 2: "Burger with no onions" → {"food": "burger", "exclude": ["onions"]}
-
-Now convert: "Pasta with extra garlic"
-✅ Use when: You need specific output format or handling edge cases. 
-
-💡 Pro Tip: Include “weird” examples (e.g., “no cheese”, “half-half”) to make AI robust. 
-
-3. Chain of Thought (CoT) — “Think Step by Step”
-Forces AI to reason aloud before answering.
-MAGIC for math, logic, puzzles.
-Example:
-
-
-1
-2
-3
-4
-5
-6
-Q: I was 5, my brother was twice my age. Now I’m 25. How old is he?
-A: Let’s think step by step.
-1. When I was 5, brother was 5 × 2 = 10.
-2. Age gap = 10 - 5 = 5 years.
-3. Now I’m 25 → brother is 25 + 5 = 30.
-4. Answer: 30.
-✅ Use when: Task requires reasoning (math, debugging, planning). 
-
-💡 Pro Tip: ALWAYS use Temperature = 0 with CoT. 
-
-4. Self-Consistency — Ask 5 Times, Pick the Majority
-Ask the same question multiple times (with high Temp for variation).
-Extract final answer from each → pick the most frequent one.
-Reduces hallucination risk.
-✅ Use when: High-stakes decisions (medical, legal, security). 
-
-5. Step-Back Prompting — Zoom Out First
-Ask a broader, conceptual question FIRST.
-Use that answer as context for your specific task.
-Example:
-
-
-1
-2
-Step 1: What makes a video game level scary?
-Step 2: Now, write a scary level description set in an abandoned hospital.
-✅ Use when: Creative tasks, brainstorming, complex problem-solving. 
-
-6. ReAct Prompting — Reason + Act (Use Tools!)
-AI thinks → performs action (e.g., Google search) → thinks again → repeats.
-Requires coding (Python + LangChain).
-Example:
-
-
-1
-2
-3
-4
-Q: How many kids do Metallica band members have?
-→ AI searches “Metallica members” → finds 4 names
-→ Searches “James Hetfield kids” → finds 3
-→ Repeats for each → adds total = 10
-✅ Use when: You need REAL-TIME data (stock prices, news, sports scores). 
 
-7. Tree of Thoughts (ToT) — Explore ALL Paths
-AI doesn’t follow one linear path — it explores multiple reasoning branches simultaneously.
-Like a human brainstorming: “What if I try X? Or Y? Or Z?”
-Computationally expensive — but powerful for puzzles, strategy, innovation.
-✅ Use when: Solving open-ended problems with multiple valid solutions. 
+Prompt Engineering 
 
-8. Automatic Prompt Engineering (APE) — AI Writes Prompts for You!
-Ask AI: “Generate 10 prompts to classify movie reviews.”
-Test all → pick the best → refine.
-Saves hours of manual trial-and-error.
-✅ Use when: Building chatbots, automating customer support, scaling content generation. 
 
-9. Generated Knowledge Prompting — Fact-Check First!
-Step 1: Ask AI to list relevant facts.
-Step 2: Use those facts to answer the real question.
-Reduces hallucinations.
-Example: 
+1. What is the main purpose of prompt engineering?
 
+a) To make AI respond faster
+b) To ensure AI produces desired output by giving precise instructions
+c) To train AI from scratch
+d) To increase AI creativity automatically
 
 
-1
-2
-Step 1: List 5 facts about climate change in Pakistan.
-Step 2: Using those facts, write a 3-paragraph article for students.
-✅ Use when: Accuracy is critical (education, journalism, research). 
+2. When setting Temperature = 0, the AI:
 
-10. Directional Stimulus Prompting — Give Hints, Not Answers
-Don’t ask for solution → ask for clues.
-Great for teaching, tutoring, interviews.
-Example: 
+a) Always chooses the most likely word
+b) Generates highly creative responses
+c) Chooses random words for variety
+d) Balances between creativity and safety
 
 
-
-1
-2
-3
-4
-Instead of solving 2x + 5 = 15, give me 3 hints.
-→ 1. Move 5 to the other side.
-→ 2. Subtract 5 from both sides.
-→ 3. Divide both sides by 2.
-✅ Use when: Training students, creating educational content. 
+3. Chain-of-Thought prompting is primarily used to:
 
-11. Skeleton-of-Thought (SoT) — Outline First, Then Fill
-Step 1: Ask AI to create an outline/structure.
-Step 2: Ask it to fill in each section.
-Ensures logical flow and completeness.
-Example: 
+a) Reduce token usage
+b) Guide AI to reason step by step
+c) Make AI more creative
+d) Shorten the answer
 
 
+4. Few-shot prompting differs from zero-shot in that:
 
-1
-2
-Step 1: Create outline for “How to Save Money in Pakistan”.
-Step 2: Now write full article using that outline.
-✅ Use when: Writing long-form content (blogs, reports, scripts). 
+a) It requires no context at all
+b) It provides one or more examples of the desired output
+c) It always produces JSON output
+d) It guarantees 100% accuracy
 
-12. Least-to-Most Prompting — Start Simple, Build Complexity
-Ask easy sub-questions first → use answers to solve harder main question.
-Mimics how humans learn.
-Example: 
 
 
+5. Top-P sampling controls:
 
-1
-2
-3
-1. What is photosynthesis?
-2. How does it help plants grow?
-3. Explain its role in the ecosystem.
-✅ Use when: Teaching complex topics, onboarding new users. 
+a) Probability mass of candidate words
+b) Maximum token length
+c) Creativity of AI
+d) Temperature automatically
 
-13. Role Prompting — “Act As...”
-Assign AI a persona: teacher, comedian, CEO, detective.
-Changes tone, depth, and style.
-Example: 
 
+6. Which of the following is true about Max Tokens?
 
+a) It makes AI produce better logical reasoning
+b) It limits the length of AI’s response
+c) It increases AI creativity
+d) It changes AI’s temperature
 
-1
-Act as a sarcastic tech reviewer. Review the iPhone 15.
-✅ Use when: Controlling voice, style, or expertise level. 
 
-14. System Prompting — Set Global Rules
-Define output format, tone, constraints upfront.
-Example:
-
 
-1
-
-You are a JSON-only assistant. Never add extra text. Only return valid JSON.
-``` 
-
-✅ Use when: Integrating AI into apps, APIs, databases. 
+7. Step-back prompting helps in:
 
-15. Contextual Prompting — Give Background
-Provide situational info so AI tailors response.
-Example: 
+a) Asking multiple questions at once
+b) Breaking a complex task into a bigger simpler question first
+c) Reducing token usage
+d) Increasing randomness in output
 
 
 
-1
-2
-Context: User is a beginner Python programmer.
-Explain how ‘for loops’ work.
-✅ Use when: Personalizing responses, handling niche topics. 
-
-16. Multimodal Prompting — Use Images, Audio, Video
-Upload image → “Describe this scene.”
-Upload audio → “Summarize this meeting.”
-Requires models like GPT-4V, Gemini 1.5.
-✅ Use when: Working with visual/audio data (medical imaging, video analysis, design). 
-
-17. JSON Schema Prompting — Blueprint for Data
-Provide a “template” for structured output.
-Forces AI to follow exact format → reduces errors.
-Example Schema: 
-
-json
-
-
-1
-2
-3
-4
-5
-⌄
-{
-  "name": "string",
-  "price": "number",
-  "release_date": "date"
-}
-✅ Use when: Extracting data, building databases, APIs. 
-
-18. Active Prompting — Let AI Ask YOU Questions
-AI identifies missing info → asks clarifying questions → THEN answers.
-Mimics human conversation.
-Example: 
-
-
-
-1
-2
-Q: Help me plan a trip.
-AI: Where are you going? When? Budget? Interests?
-✅ Use when: Complex, ambiguous requests (travel, consulting, therapy bots). 
-
-19. Maieutic Prompting — “Socratic Method”
-AI challenges its own answer → explains why it’s right → builds confidence.
-Reduces hallucinations.
-Example: 
-
-
-
-1
-2
-Q: Is the Earth flat?
-A: No. Why? Because satellite images, gravity, circumnavigation prove it’s round.
-✅ Use when: Debating, critical thinking, education. 
-
-20. Contrastive Prompting — “What’s Better: A or B?”
-Forces AI to compare → reveals deeper understanding.
-Example: 
-
-
-
-1
-Compare Python and JavaScript for beginners. Pros/cons of each.
-✅ Use when: Decision-making, product comparisons, reviews. 
-
-🎯 SECTION 4: Best Practices — The Pro Playbook
-✅ 1. ALWAYS Start with Few-Shot + CoT for complex tasks.
-✅ 2. Use Strong Action Verbs: Write, Explain, List, Classify, Translate, Act As.
-✅ 3. Be HYPER-SPECIFIC: “3 paragraphs, fun tone, for beginners, focus on 1990s.”
-✅ 4. Prefer INSTRUCTIONS over CONSTRAINTS:
-❌ “Don’t mention price.”
-✅ “Only describe features and color.”
-✅ 5. Control Length: “Answer in 1 sentence.” + Set Max Tokens.
-✅ 6. Use Variables: Tell me about {city} → swap {city} = “Lahore”, “Karachi”.
-✅ 7. Document EVERYTHING: Use a Google Sheet to track prompts, settings, outputs.
-✅ 8. Test Edge Cases: “No cheese”, “Half-half”, “Gluten-free”, “Emergency mode”.
-✅ 9. Combine Techniques: CoT + Few-Shot + Role Prompting = SUPER PROMPT.
-✅ 10. Iterate Relentlessly: Change one word → test → document → repeat.
-💻 SECTION 5: Prompting for Code — The Developer’s Toolkit
-➤ Write Code:
-“Write Python script to rename all files in folder with ‘DRAFT_’ prefix.” 
-
-➤ Explain Code:
-“Explain this Python code line by line.” 
-
-➤ Translate Code:
-“Convert this JavaScript to Python.” 
-
-➤ Debug Code:
-“This Python code gives ‘NameError: toUpperCase’. Fix it.” 
-
-⚠️ ALWAYS REVIEW AI-GENERATED CODE. It can be outdated, insecure, or wrong. 
-
-📊 SECTION 6: Cheat Sheet — When to Use What
-Zero-Shot
-Simple, common tasks
-Translate
-,
-Summarize
-Few-Shot
-Complex patterns, data formatting
-Example: ...
-Chain of Thought
-Math, logic, reasoning
-Let’s think step by step.
-Step-Back
-Creative brainstorming
-First, list 5 ideas...
-Self-Consistency
-High-stakes classification
-Ask 5 times, pick majority
-ReAct
-Real-time data / web search
-Search for...
-Tree of Thoughts
-Multi-solution problems
-Explore all possible ways...
-Generated Knowledge
-Reduce hallucinations
-First, list facts about...
-Directional Stimulus
-Teaching / hints
-Give me 3 hints to solve...
-Skeleton-of-Thought
-Long-form content
-First, create an outline...
-Least-to-Most
-Build complexity
-First, explain X. Then, Y...
-
-🚀 FINAL TIP: Prompt Engineering Is Iterative
-There’s no “perfect prompt” on first try.
-→ Write → Test → Tweak → Document → Repeat.
-→ Change model? Start over.
-→ Change task? Start over.
-→ Change audience? Start over.
-
-Your documentation (Google Sheet) is your superpower.
-
-✅ BONUS: Missing Techniques Added (From Latest Research)
-Program-Aided Language Models (PAL): AI writes code → code executes → returns answer. More accurate than pure text.
-Automatic Reasoning & Tool-use (ART): AI decides which tool (calculator, search, API) to use for each sub-task.
-Constitutional AI: AI critiques its own output against a “constitution” (e.g., “Be helpful, harmless, honest.”).
-Prompt Chaining: Break big task into small prompts → chain outputs together.
-Meta-Prompting: “Improve this prompt for better clarity and specificity.”
-You now hold the most comprehensive, deeply explained, beginner-friendly Prompt Engineering guide available anywhere — combining industry best practices, academic research, and real-world testing.
-
-Go forth and engineer amazing prompts! 🚀🤖
+8. System prompts are best used to:
+
+a) Give general background context
+b) Set rules and AI’s role
+c) Provide examples of the task
+d) Force AI to be creative
+
+
+
+9. Self-consistency prompting improves accuracy by:
+
+a) Asking the same question multiple times and aggregating answers
+b) Lowering Top-K and Top-P
+c) Increasing temperature
+d) Reducing Max Tokens
+
+
+
+10. Which combination is generally safest for factual outputs?
+
+a) Temp: 0.9, Top-P: 0.95, Top-K: 50
+b) Temp: 0.1, Top-P: 0.9, Top-K: 30
+c) Temp: 1.0, Top-P: 0.8, Top-K: 100
+d) Temp: 0.7, Top-P: 0.99, Top-K: 10
+
+
+
+11. Role prompting allows AI to:
+
+a) Predict the next word only
+b) Act as a specific character or profession
+c) Increase creativity by changing temperature
+d) Limit Max Tokens automatically
+
+
+12. What is the main difference between Top-K and Top-P?
+
+a) Top-K uses cumulative probability; Top-P uses fixed number of words
+b) Top-K uses fixed number of words; Top-P uses cumulative probability
+c) Both are identical
+d) Top-K is for creativity; Top-P is for factuality
+
+
+13. Chain-of-thought is especially important when:
+
+a) You want a short response
+b) Tasks are simple and factual
+c) The task involves reasoning or multi-step logic
+d) You want JSON output
+
+
+
+14. Zero-shot prompting is likely to fail when:
+
+a) Task is extremely obvious to AI
+b) Task requires reasoning or step-by-step logic
+c) AI is trained on lots of examples
+d) You want a short answer
+
+
+
+15. Why is documentation of prompts considered best practice?
+
+a) To improve token efficiency
+b) To track which prompts and settings give desired outputs
+c) To automatically improve AI’s learning
+d) To increase AI creativity
+
+
+
+16. ReAct prompting is different because:
+
+a) It only uses Top-P = 1
+b) AI alternates reasoning and actions with tools
+c) It reduces Max Tokens automatically
+d) It replaces zero-shot prompting
+
+
+
+17. When converting instructions to JSON output, which technique is most useful?
+
+a) Few-shot examples with JSON format
+b) Zero-shot vague instructions
+c) High temperature
+d) Step-back prompting
+
+
+
+18. High temperature + low Top-P typically results in:
+
+a) Predictable output
+b) Highly random but still somewhat focused output
+c) Completely factual output
+d) Very short output
+
+
+
+19. Step-back prompting is useful because:
+
+a) It reduces computation cost
+b) It allows AI to reason from general → specific
+c) It guarantees correct output
+d) It only works with zero-shot prompts
+
+
+
+20. Which is not a valid use of system prompts?
+
+a) Define AI’s role
+b) Force output format
+c) Provide one or multiple examples
+d) Give strict rules for behavior
+
+
+
+21. Self-consistency is especially useful in:
+
+a) High-stakes reasoning tasks
+b) Short factual lookup tasks
+c) Writing creative poems
+d) Increasing Top-K
+
+
+22. Role prompting + context prompting can be combined to:
+
+a) Produce creative outputs without constraints
+b) Give AI a specific role and background info
+c) Automatically reduce temperature
+d) Force JSON formatting only
+
+
+
+23. What happens if Top-P = 1 and Top-K = unlimited?
+
+a) AI considers all words in the vocabulary for prediction
+b) AI considers only the top predicted word
+c) AI stops predicting after 10 words
+d) AI outputs random nonsense
+
+
+
+24. Which is the most important factor to ensure AI reasoning correctness in math problems?
+
+a) High temperature
+b) Chain-of-Thought + temperature 0
+c) Few-shot examples only
+d) Top-K = 100
+
+
+
+25. Few-shot prompting improves AI outputs mainly by:
+
+a) Providing examples for AI to mimic
+b) Reducing token usage
+c) Automatically lowering temperature
+d) Increasing randomness
+
+
+26. Why might zero-shot prompts fail on complex coding tasks?
+
+a) AI cannot code at all
+b) Lack of example patterns for guidance
+c) Top-P is too high
+d) Temperature is 0
+
+
+27. In practical prompt engineering, “action words” like Write, List, Explain are used to:
+
+a) Control AI’s creativity
+b) Explicitly tell AI what task to perform
+c) Automatically format JSON
+d) Limit token output
+
+
+
+28. Which technique is most reliable for extracting structured data?
+
+a) ReAct prompting
+b) JSON + Few-shot prompting
+c) Zero-shot vague instruction
+d) Step-back prompting
+
+
+
+29. High temperature + high Top-P + few-shot examples results in:
+
+a) Predictable, factual output
+b) Creative but guided output
+c) Confusing nonsense output
+d) Step-by-step reasoning automatically
+
+
+
+30. Why is step-by-step thinking recommended for reasoning tasks?
+
+a) AI generates shorter answers
+b) Helps AI avoid jumping to wrong conclusions
+c) Reduces token usage
+d) Automatically formats output
 
