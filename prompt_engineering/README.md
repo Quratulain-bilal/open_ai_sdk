@@ -1,14 +1,8 @@
-# 🚀 ULTIMATE PROMPT ENGINEERING GUIDE (Roman Urdu Mein) 
+# 🚀  PROMPT ENGINEERING GUIDE  
 
 > _"Prompt Engineering sirf 'instructions dena' nahi  ye ek art hai, science hai, aur ek superpower hai!"
 
 Agar aap ne socha hai ke Prompt Engineering sirf "Temperature aur Few-Shot" tak limited hai — to aap bilkul galat hain! Aaj ke zamane mein, **top companies aur AI researchers** ne itni advanced techniques develop kar li hain ke aap AI ko **detective, scientist, ya apna personal assistant** bana sakte hain!
-
-Ye guide aap ko **zero se PRO** tak le jayega. Har technique ko hum **Roman Urdu** mein samjhain ge, har mushkil lafz ko **brackets mein explain** karen ge, aur har technique ke saath **real examples** den ge — taake aap seedha istemal kar saken!
-
-Chaliye, shuru karte hain!
-
----
 
 ## 📚 1. Prompt Engineering Kya Hai? 
 
@@ -293,3 +287,4 @@ Ek hi prompt mein **CoT + Few-Shot + Role Prompting** combine karo!
 
 
 **Happy Prompting!** 😊🤖
+
