@@ -3,15 +3,13 @@
 
 > _"Prompt Engineering sirf ‘instructions dena’ nahi — ye ek **science** hai, jismein aap AI ke dimagh ko **guide** karte hain taake woh aap ke liye **sahi aur accurate** kaam kare!"_
 
----
-
 ## 📚 SECTION 1: Prompt Engineering Kya Hai? 
 
 ### 💡 Simple Definition:
 **Prompt = Hukum** jo aap AI ko dete hain.  
 **Engineering = Is hukum ko itna achha banana** ke AI bilkul wohi kare jo aap chahte hain — na zyada, na kam!
 
-- **LLM (Large Language Model)**: AI ka dimagh — jo internet ki sab cheezon ko padh kar seekha hai. *(Jaise koi bacha jo library ki sab kitabein parh kar sab kuch yaad kar leta hai!)*
+- **LLM (Large Language Model)**: AI ka dimagh  jo internet ki sab cheezon ko padh kar seekha hai. *(Jaise koi bacha jo library ki sab kitabein parh kar sab kuch yaad kar leta hai!)*
 - **Token**: AI ke liye har lafz, comma, ya space ek “token” hota hai. *(Jaise “Pakistan” = 1 token, “Pak-istan” = 2 tokens)*
 
 > 💡 **Example**:  
@@ -425,5 +423,6 @@ Prompt Engineering ek **iterative process** hai — matlab aap ko bar-bar try ka
 
 
 **Happy Prompting!** 😊🤖
+
 
 
