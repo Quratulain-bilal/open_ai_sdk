@@ -283,6 +283,60 @@ AI apne aap ko “prompt engineer” ki tarah behave karta hai — jo aap ke liy
 
 > 💡 **Pro Tip**: Jab aap ko bohat sare similar prompts chahiye hote hain — jaise ek chatbot ke liye 50 alag tareeqon se "order place karna".
 
+
+###Multimodal Meta-Prompting (Text + Image)
+
+Meaning:
+AI ko khud hi prompts design karne ke liye kehna, aur ye prompts text + image dono ke liye generate kare, taake final output highly creative aur accurate ho.
+
+Key Idea:
+
+1. AI as Prompt Designer → AI khud decide karega kya prompt likhna hai.
+
+
+2. Multimodal Input → Text + Image dono reference ke liye use hote hain.
+
+
+3. High-Level Control → Style, mood, composition, aur constraints AI khud optimize kare.
+
+
+
+
+---
+
+🔹 Step by Step Example (Easy Version)
+
+Step 1: Provide Reference Image
+
+Example: A simple sketch of a futuristic car
+
+
+Step 2: Text Context / Goal
+
+Example: “Make this car look like a cyberpunk racing car, neon lights, city at night”
+
+
+Step 3: Meta-Prompt Command
+
+Prompt AI:
+
+> “Generate a detailed text prompt for an AI image generator to transform this sketch into a cyberpunk futuristic car, keeping proportions realistic and adding cinematic lighting.”
+
+
+
+
+Step 4: AI Outputs Meta-Prompt
+
+AI creates a rich prompt:
+
+> “Transform this sketch into a sleek cyberpunk racing car, with neon purple highlights, wet reflective streets, rain droplets, night cityscape, ultra-realistic style, cinematic lighting, wide-angle perspective”
+
+
+
+
+Step 5: Final Image Generation
+
+Use this meta-prompt with image AI → High-quality professional
 ---
 
 ### 9. Generated Knowledge Prompting — “Pehle Facts Nikalo, Phir Jawab Do!”
@@ -417,6 +471,7 @@ AI ko step-by-step build-up milta hai — is se final jawab zyada accurate hota 
 
 
 **Happy Prompting!** 😊🤖
+
 
 
 
