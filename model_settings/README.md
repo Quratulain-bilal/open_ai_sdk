@@ -3,16 +3,16 @@
 
 Yeh decide karta hai ke model kitna boring ya kitna creative jawab dega.
 
-⚙️ Kaise kaam karta hai?
+ Kaise kaam karta hai?
 
 Agar temperature = 0.0 → model har bar same jawab dega.
 
 Agar temperature = 1.0 → model har bar thoda alag creative jawab dega.
 
-🧪 Example:
+ Example:
 
 Aap poochte ho:
-👉 "2 + 2 kya hota hai?"
+ "2 + 2 kya hota hai?"
 
 Agar temperature = 0.0 → model bolega: "4" (hamesha same).
 
@@ -25,26 +25,26 @@ Agar temperature = 0.9 → model bolega:
 "Of course it's 4"
 (matlab har bar thoda style change karega).
 
-🎯 Kab use karein?
+ Kab use karein?
 Situation	temperature
 Maths / History / Facts	0.0 (boring but correct)
 Poem / Story / Creative kaam	0.7 - 1.0 (zinda dil answer)
-✅ 2️⃣ top_p: float | None
-🔍 Kya karta hai?
+ 2️⃣ top_p: float | None
+ Kya karta hai?
 
 Yeh decide karta hai ke model kitne options me se choose kare. Isko nucleus sampling kehte hain.
 
-⚙️ Kaise kaam karta hai?
+ Kaise kaam karta hai?
 
 Model ke paas bahut saare possible words hote hain choose karne ke liye.
 top_p batata hai:
 
 "Sirf top X% zyada possible words me se choose karo."
 
-🧪 Simple Example with Colors:
+ Simple Example with Colors:
 
 Socho aap model se kehte ho:
-👉 "Ek color ka naam batao."
+ "Ek color ka naam batao."
 
 Model ke paas list hai:
 
@@ -54,23 +54,22 @@ Blue	30%
 Green	15%
 Yellow	10%
 Purple	5%
-🔹 Agar top_p = 1.0:
+ Agar top_p = 1.0:
 
 → Sabhi colors consider karega (Red, Blue, Green, Yellow, Purple).
 Matlab full freedom.
-
-🔹 Agar top_p = 0.5:
+ Agar top_p = 0.5:
 
 → Sirf top 50% probability wale words lega.
 Matlab: Red (40%) + Blue (30%) = 70% → bas Red aur Blue me se choose karega.
 
 📌 Iska matlab: top_p jitna kam hoga, utna focused aur predictable answer milega.
 
-🎯 Kab use karein?
+ Kab use karein?
 Situation	top_p value
 Creative answer (zyada options)	1.0
 Focused aur safe answer	0.3 - 0.5
-⚠️ Important:
+ Important:
 
 temperature = randomness kitni ho.
 
@@ -235,3 +234,4 @@ truncation	Purani messages truncate karni ya nahi
 max_tokens	Output ki length limit
 
 reasoning	Logic-based reasoning config
+
