@@ -1,4 +1,4 @@
-📘# Premium Markdown Master Guide (Beginner → Advanced)
+📘 # Premium Markdown Master Guide (Beginner → Advanced)
 
 
 
@@ -314,6 +314,7 @@ Organize: Large README ke liye collapsible sections aur reference links use karo
 | **Links** | `[OpenAI](https://openai.com)` | Use descriptive text | "Click here" text | Helps SEO/UX |
 | **Images** | `![Alt](img.png)` | Add alt text | Skipping alt text | Alt = SEO + accessibility |
 | **Code Block** | ```` ```js <br>console.log("Hi") <br>``` ```` | Use syntax highlight | Language missing | Inline = short, Block = long |
+
 
 
 
