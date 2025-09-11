@@ -27,7 +27,7 @@ Subheadings ke liye logically ##, ### use karo.
 
 Heading ke upar neeche blank line rakho readability ke liye.
 
-🔹 2. # Paragraphs & Line Breaks
+# Paragraphs & Line Breaks
 ✅ Correct Example
 This is my first paragraph.
 
@@ -313,6 +313,7 @@ Organize: Large README ke liye collapsible sections aur reference links use karo
 | **Links** | `[OpenAI](https://openai.com)` | Use descriptive text | "Click here" text | Helps SEO/UX |
 | **Images** | `![Alt](img.png)` | Add alt text | Skipping alt text | Alt = SEO + accessibility |
 | **Code Block** | ```` ```js <br>console.log("Hi") <br>``` ```` | Use syntax highlight | Language missing | Inline = short, Block = long |
+
 
 
 
