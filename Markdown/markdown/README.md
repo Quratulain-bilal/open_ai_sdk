@@ -48,7 +48,7 @@ Har paragraph ke darmiyan ek blank line zaroor rakho.
 
 Professional docs me short aur readable paras likho.
 
-🔹 3. Emphasis (Bold, Italic, Bold+Italic)
+# Emphasis (Bold, Italic, Bold+Italic)
 ✅ Correct Example
 *Italic*  
 **Bold**  
@@ -71,7 +71,7 @@ Italic → notes ya special terms ke liye.
 
 Overuse mat karo warna doc messy lagta hai.
 
-🔹 4. Blockquotes
+# Blockquotes
 ✅ Correct Example
 > This is a quote
 >> Nested quote
@@ -95,7 +95,7 @@ Quotes sirf important notes / references ke liye use karo.
 
 Large content ke liye blockquote avoid karo.
 
-🔹 5. Lists
+# Lists
 ✅ Ordered List
 1. First
 2. Second
@@ -129,7 +129,7 @@ Ek project me ek hi bullet style follow karo.
 
 Task list GitHub README me professional lagti hai → ✔ roadmap ya features ke liye.
 
-🔹 6. Code
+# Code
 ✅ Inline
 Use `print("hello")`
 
@@ -313,6 +313,7 @@ Organize: Large README ke liye collapsible sections aur reference links use karo
 | **Links** | `[OpenAI](https://openai.com)` | Use descriptive text | "Click here" text | Helps SEO/UX |
 | **Images** | `![Alt](img.png)` | Add alt text | Skipping alt text | Alt = SEO + accessibility |
 | **Code Block** | ```` ```js <br>console.log("Hi") <br>``` ```` | Use syntax highlight | Language missing | Inline = short, Block = long |
+
 
 
 
