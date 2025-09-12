@@ -47,7 +47,7 @@ It converts plain text into formatted content like headings, bold, lists, and li
 
 Example:
 
-markdown
+text
 # Heading
 This is **bold** text.
 👉 Good Practice: Always use Markdown for README files because GitHub and most documentation tools support it by default.
@@ -57,7 +57,7 @@ Use # for headings. More # = smaller heading.
 
 Syntax:
 
-markdown
+text
 # H1 Heading  
 ## H2 Heading  
 ### H3 Heading  
@@ -76,7 +76,7 @@ To force a line break → end a line with two spaces.
 
 Syntax:
 
-markdown
+text
 This is first paragraph.  
 
 This is second paragraph.  
@@ -100,7 +100,7 @@ Strikethrough	~~text~~	~~text~~
 Inline code	`code`	code
 Syntax:
 
-markdown
+text
 **bold**, *italic*, ***bold+italic***, ~~strikethrough~~, and `inline code`
 Preview:
 bold, italic, bold+italic, ~~strikethrough~~, and inline code
@@ -111,7 +111,7 @@ bold, italic, bold+italic, ~~strikethrough~~, and inline code
 Ordered List
 Syntax:
 
-markdown
+text
 1. First  
 2. Second  
 3. Third
@@ -126,7 +126,7 @@ Third
 Unordered List
 Syntax:
 
-markdown
+text
 - Apple  
 - Banana  
 - Mango
@@ -148,7 +148,7 @@ Another item
 Task List (GitHub only)
 Syntax:
 
-markdown
+text
 - [x] Completed  
 - [ ] Pending
 Preview:
@@ -162,7 +162,7 @@ Pending
 🔗 Links
 Syntax:
 
-markdown
+text
 [GitHub](https://github.com)  
 [GitHub with tooltip](https://github.com "Go to GitHub")
 Preview:
@@ -174,11 +174,11 @@ Tooltips provide additional information when hovering over text. In Markdown, yo
 
 Syntax:
 
-markdown
+text
 [Link Text](URL "Tooltip Text")
 Example:
 
-markdown
+text
 [Hover over me](https://example.com "This is a tooltip!")
 Preview:
 Hover over me
@@ -188,7 +188,7 @@ Hover over me
 🖼️ Images
 Syntax:
 
-markdown
+text
 ![Markdown Logo](https://markdown-here.com/img/icon256.png)  
 [![Clickable Image](https://markdown-here.com/img/icon256.png)](https://github.com)
 Preview:
@@ -199,11 +199,11 @@ You can also add tooltips to images for additional context:
 
 Syntax:
 
-markdown
+text
 ![Alt Text](image-url "Image Tooltip")
 Example:
 
-markdown
+text
 ![Markdown Logo](https://markdown-here.com/img/icon256.png "Markdown Language Logo")
 Preview:
 https://markdown-here.com/img/icon256.png
@@ -214,7 +214,7 @@ https://markdown-here.com/img/icon256.png
 Inline Code
 Syntax:
 
-markdown
+text
 Use `print("Hello")` in Python.
 Preview:
 Use print("Hello") in Python.
@@ -222,7 +222,7 @@ Use print("Hello") in Python.
 Code Block
 Syntax:
 
-markdown
+text
 ```python
 def hello():
     print("Hello, world!")
@@ -237,7 +237,7 @@ def hello():
 💬 Blockquotes
 Syntax:
 
-markdown
+text
 > This is a quote.  
 >> Nested Quote
 Preview:
@@ -251,7 +251,7 @@ Nested Quote
 📊 Tables
 Syntax:
 
-markdown
+text
 | Name  | Age | City     |
 |-------|-----|----------|
 | Alice | 30  | New York |
@@ -266,7 +266,7 @@ Bob	25	London
 ➖ Horizontal Rules
 Syntax:
 
-markdown
+text
 ---
 Preview:
 
@@ -275,7 +275,7 @@ Preview:
 😃 Emojis
 Syntax:
 
-markdown
+text
 😄 🚀 🔥 👍
 Preview: 😄 🚀 🔥 👍
 
@@ -284,7 +284,7 @@ Preview: 😄 🚀 🔥 👍
 📌 Footnotes
 Syntax:
 
-markdown
+text
 Here is a sentence with a footnote.[^1]  
 
 [^1]: This is the footnote content.
@@ -296,7 +296,7 @@ Here is a sentence with a footnote.
 📂 Collapsible Sections
 Syntax:
 
-markdown
+text
 <details>
   <summary>Click to expand</summary>
   Hidden content here.
@@ -309,7 +309,7 @@ Preview:
 🧩 Mermaid Diagrams (GitHub only)
 Syntax:
 
-markdown
+text
 ```mermaid
 graph TD
   A[Start] --> B{Working?}
@@ -331,7 +331,7 @@ Code
 🏅 Badges
 Syntax:
 
-markdown
+text
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)  
 ![License](https://img.shields.io/badge/license-MIT-blue)
 Preview:
@@ -343,7 +343,7 @@ https://img.shields.io/badge/license-MIT-blue
 🧑‍💻 HTML Inside Markdown
 Syntax:
 
-markdown
+text
 <div align="center">
   <h3>Centered Heading</h3>
   <p>This is inside a div</p>
@@ -377,7 +377,18 @@ Include examples for complex concepts
 Add tooltips to links and images for better context
 
 🎉 Congratulations!
+You've now mastered Markdown! This guide covers everything from basic formatting to advanced GitHub features including tooltips. Practice regularly to become proficient.
 
+Happy Documenting! 📄✨
 
+📥 How to Use This Guide
+Copy the entire content of this file
 
+Save it as README.md in your project
+
+Customize it according to your needs
+
+Add your own content while keeping the structure
+
+This guide is formatted with proper Markdown syntax and will render correctly on GitHub and other Markdown viewers.
 
