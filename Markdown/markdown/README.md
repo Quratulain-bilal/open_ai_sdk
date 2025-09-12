@@ -28,7 +28,7 @@ This README explains every major Markdown feature with examples + live preview o
 - [HTML Inside Markdown](#-html-inside-markdown)
 - [Best Practices](#-best-practices)
 - [🎉 Congratulations!](#-congratulations)
-- [📥 How to Use This Guide](#-how-to-use-this-guide)
+  
 
 ---
 
@@ -583,5 +583,6 @@ Made with ❤️ by Quratulain Bilal
 ```
 
 ---
+
 
 
