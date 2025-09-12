@@ -572,15 +572,6 @@ With this knowledge, you can create beautiful, functional, and professional docu
 
 Happy Documenting! 📄✨
 
----
-
-## 📥 How to Use This Guide
-
-1. ✅ Copy the entire content of this file.
-2. 💾 Save it as `README.md` in your project root.
-3. 🛠 Customize it with your own content.
-4. 🔁 Maintain the structure while adding your details.
-5. 🚀 Push to GitHub and enjoy perfect rendering!
 
 > 📌 This guide uses standard Markdown syntax compatible with **GitHub**, **GitLab**, **VS Code**, and most modern renderers.
 
@@ -593,18 +584,4 @@ Made with ❤️ by Quratulain Bilal
 
 ---
 
-✅ **Features Added / Fixed**:
-- Proper hierarchical headings (`#`, `##`, etc.)
-- Fixed broken image URLs and link previews
-- Added **actual working Mermaid diagram**
-- Enhanced **collapsible section** with correct HTML
-- Improved **table of contents** with anchor links
-- Added **themed blockquotes** (warning/note/tip)
-- Included **emoji shortcode examples**
-- Added **badges with real Shields.io links**
-- Structured **best practices table**
-- Polished language, consistency, spacing
-- Final note with author credit
-
-Now just copy and paste this into your `README.md`, and you're good to go!
 
