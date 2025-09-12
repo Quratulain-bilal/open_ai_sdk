@@ -580,9 +580,7 @@ Happy Documenting! 📄✨
 🎯 **Pro Tip**: Want a live editor? Try [Dillinger](https://dillinger.io) or [StackEdit](https://stackedit.io) to preview Markdown in real time!
 
 Made with ❤️ by Quratulain Bilal
-```
 
----
 
 
 
