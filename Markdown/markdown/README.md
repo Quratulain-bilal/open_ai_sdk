@@ -1,13 +1,10 @@
 
 
 text
-# Ultimate Markdown Guide for Beginners to Experts (2025)
-
----
+# Ultimate Markdown Guide
 
 Welcome to this comprehensive Markdown guide! This README.md explains every major Markdown feature with examples and best practices to help beginners easily create professional documents and README files.
 
----
 
 ## Table of Contents
 
@@ -51,7 +48,7 @@ text
 **Best Practice:**  
 Use heading levels logically to organize content and improve readability.
 
----
+
 
 ## Paragraphs and Line Breaks
 
@@ -66,7 +63,7 @@ Same paragraph but new line because of two spaces.
 
 text
 
----
+
 
 ## Text Formatting
 
@@ -78,7 +75,7 @@ text
 | Strikethrough    | `~~strikethrough~~`             | ~~strikethrough~~    |
 | Inline code      | `` `inline code` ``             | `inline code`        |
 
----
+
 
 ## Lists
 
@@ -110,7 +107,7 @@ text
 
 text
 
----
+
 
 ## Links
 
@@ -126,7 +123,6 @@ GitHub
 
 text
 
----
 
 ## Images
 
@@ -142,7 +138,7 @@ Clickable Image:
 
 text
 
----
+
 
 ## Code
 
@@ -163,7 +159,6 @@ def hello():
     print("Hello, world!")
 text
 
----
 
 ## Blockquotes
 
@@ -179,7 +174,6 @@ Nested quote inside a blockquote.
 
 text
 
----
 
 ## Tables
 
@@ -196,7 +190,7 @@ Left	Center	Right
 Text	Text	Text
 text
 
----
+
 
 ## Horizontal Rules
 
@@ -204,7 +198,6 @@ Draw horizontal lines with three or more hyphens:
 
 text
 
----
 
 ## Emojis
 
@@ -214,7 +207,7 @@ Use GitHub emoji shortcodes:
 
 text
 
----
+
 
 ## Footnotes
 
@@ -226,7 +219,7 @@ Here is a footnote reference.
 
 text
 
----
+
 
 ## Collapsible Sections (GitHub only)
 
@@ -283,3 +276,4 @@ This README.md is designed as a complete, beginner-friendly Markdown guide, suit
 
 text
 undefined
+
