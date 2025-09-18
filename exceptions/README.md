@@ -1,92 +1,122 @@
+# 📄 **OpenAI Agents SDK – Exceptions & Error Handling (Complete README)**  
+*(Formatted for VS Code / GitHub — Clean, Structured, Developer-Friendly)*
 
 ---
 
-### **1. AgentsException**
-
-Ye sab exceptions ki "parent" class hai. Matlab ye khud nahi aati, lekin agar aap code mein `except AgentsException:` likh den to aap ne SDK ki kisi bhi specific error ko pakad liya. Ye sirf ek category banane ke liye hai taake programmer ko pata ho ke ye error SDK se aa raha hai.
-
----
-
-### **2. MaxTurnsExceeded**
-
-**Kab aati hai?**
-Jab agent aur user ke darmiyan baton ka silsila (jo turn kehlata hai) aap ne jo maximum number set kiya hai usse zyada ho jata hai.
-
-**Kyun aati hai?**
-*   Agent kisi maslay ka hal dhundhte dhundhte phas jata hai aur aik hi baar baar puchta rehta hai.
-*   User ka sawal bohat complicated hai jis ke liye zyada interactions ki zaroorat parhti hai.
-*   Kisi wajah se agent ka logic infinite loop mein phans jata hai.
-
-**Simple Misal:**
-Aap ne kaha agent 10 baar hi user se baat kar sakta hai. Agar 11th baar jawab dene ki koshish karega to ye error aa jayegi.
+> ✅ **Note**: Ye exceptions **OpenAI ka official public SDK** (`pip install openai`) ka hissa **nahi hain** — ye ek **custom/internal Agents SDK** ka hissa hain jo OpenAI models ko “Agent” ke taur pe istemal karta hai.  
+> Official OpenAI SDK exceptions: `APIError`, `RateLimitError`, `AuthenticationError` — [GitHub Link](https://github.com/openai/openai-python)
 
 ---
 
-1. MaxTurnsExceeded Error
-Code:
+## 🧩 Overview
 
-python
+Ye SDK aapko AI Agents banana aur unhe control karna asaan banata hai — lekin agar kuch galt ho jaye, to ye **custom exceptions** aapko batayenge ke masla kahan hai:  
+- Kya **user** ne galti ki? → `UserError`  
+- Kya **model** ne galti ki? → `ModelBehaviorError`  
+- Kya **safety rules** violate hui? → `Input/OutputGuardrailTripwireTriggered`  
+- Kya **agent ne zyada baar baat ki**? → `MaxTurnsExceeded`
+
+Sab exceptions ka **base class** hai: `AgentsException`
+
+---
+
+## 🚨 1. `AgentsException` — Base Class
+
+### 📌 Purpose:
+Sabhi agent-specific exceptions ka **common parent**.  
+Agar aap `except AgentsException:` likh dein — to **sab agent errors** catch ho jayengi.
+
+### 🧑‍💻 Example:
+```python
+try:
+    result = agent.run("Hello")
+except AgentsException as e:
+    print(f"Agent-related error: {e}")
+```
+
+### 💡 Kyun Banaya Gaya?
+- Taki aap **agent errors** aur **general Python errors** (`ValueError`, `KeyError`) alag se handle kar saken.
+- Logging, monitoring, aur debugging ke liye useful.
+
+---
+
+## 🔄 2. `MaxTurnsExceeded`
+
+### ❓ Kab Aati Hai?
+Jab agent aur user ke darmiyan **maximum allowed turns** (baatein) exceed ho jayein.
+
+### ⚠️ Kyun Aati Hai?
+- Agent kisi masle mein phas kar **infinite loop** mein chala jata hai.
+- User ka sawal **bohat complex** hai — solve karne ke liye zyada steps chahiye.
+- Agent ka logic **galat hai** — har baar same cheez poochta rehta hai.
+
+### 🧪 Simple Misal:
+Aap ne agent ko kaha — *“Sirf 2 baar jawab de sakte ho.”*  
+User ne 3 sawal puche → **3rd turn pe error!**
+
+### 💻 Code Example:
+```python
 from openai import OpenAI
 from agents import Agent, Runner
 import agents.exceptions as exceptions
 
 client = OpenAI(api_key="your-api-key")
 
-# Ek simple agent banaya jisme sirf 2 turns allowed hain
+# Agent with max 2 turns
 agent = Agent(
     name="Helper",
-    instructions="You are a helpful assistant. Answer in short.",
+    instructions="Answer in short.",
     model="gpt-4o",
-    max_turns=2  # Sirf 2 baar baat kar sakta hai
+    max_turns=2
 )
 
 try:
-    # User 3 baar baat karega
-    result = Runner.run_sync(agent, "Hello, how are you?")
+    result = Runner.run_sync(agent, "Hello, how are you?")  # Turn 1
     print(result.final_output)
-    
-    result = Runner.run_sync(agent, "What's your name?") 
+
+    result = Runner.run_sync(agent, "What's your name?")    # Turn 2
     print(result.final_output)
-    
-    result = Runner.run_sync(agent, "What time is it?")  # 3rd turn - ERROR!
+
+    result = Runner.run_sync(agent, "What time is it?")     # Turn 3 → ERROR!
     print(result.final_output)
-    
+
 except exceptions.MaxTurnsExceeded:
     print("❌ Agent ne maximum allowed turns exceed kar liye!")
     print("Naya session shuru karein.")
-Output:
+```
 
-text
+### 🖨️ Output:
+```
 Hi! I'm good, thank you.
 My name is Helper.
 ❌ Agent ne maximum allowed turns exceed kar liye!
 Naya session shuru karein.
-
-### **3. ModelBehaviorError**
-
-**Kab aati hai?**
-Jab AI model aisi harkat karta hai jo usse karne ko nahi kaha gaya tha. Matlab model ne galti ki hai.
-
-**Kyun aati hai?**
-*   Model ne aisi "tool" ya function use karne ki koshish ki jo aap ne agent ko di hi nahi thi.
-*   Model ne JSON format mein jawab dena tha lekin usne galat format bhej diya jise computer samajh nahi paaya.
-*   Model ne aise jawab diye jo uske diye gaye rules ke khilaf thay.
-
-**Simple Misal:**
-Aap ne agent ko bola ke sirf "get_weather" aur "set_reminder" ye do functions use karne hain. Lekin model ne "send_email" naam ka function use karne ki koshish ki, jo ke hai hi nahi. Phir ye error aa jayegi.
+```
 
 ---
-2. ModelBehaviorError
-Code:
 
-python
+## 🤖 3. `ModelBehaviorError`
+
+### ❓ Kab Aati Hai?
+Jab **AI model** aisi cheez kare jo usse karne ko **nahi kaha gaya tha** — ya jo **invalid/unsafe** ho.
+
+### ⚠️ Kyun Aati Hai?
+- Model ne **aisa tool use kiya** jo agent ke paas hi nahi tha.
+- Model ne **JSON format mein jawab nahi diya** — jise system parse nahi kar paya.
+- Model ne **schema ke khilaf** output diya — jaise required key missing.
+
+### 🧪 Simple Misal:
+Aap ne agent ko sirf `get_weather` aur `set_reminder` tools diye.  
+Lekin model ne `send_email` use karne ki koshish ki → **Error!**
+
+### 💻 Code Example:
+```python
 from openai import OpenAI
 from agents import Agent, Runner
 import agents.exceptions as exceptions
 
 client = OpenAI(api_key="your-api-key")
 
-# Agent ko tools dete hain
 tools = [
     {
         "type": "function",
@@ -111,132 +141,105 @@ agent = Agent(
 )
 
 try:
-    # Model se aisi cheez puchte hain jo uske tools mein nahi hai
     result = Runner.run_sync(agent, "Please send email to john@example.com")
     print(result.final_output)
-    
+
 except exceptions.ModelBehaviorError as e:
     print("❌ Model ne unexpected behavior dikhayi!")
     print(f"Error: {e}")
     print("Model ne aisa tool use kiya jo available nahi hai.")
-Output:
+```
 
-text
+### 🖨️ Output:
+```
 ❌ Model ne unexpected behavior dikhayi!
 Error: Tool 'send_email' not found
 Model ne aisa tool use kiya jo available nahi hai.
+```
 
+---
 
-ModelBehaviorError Cases with AgentOutputSchema
-Bilkul! Main aapko do cases samjata hoon jahan ModelBehaviorError aati hai, aur AgentOutputSchema kaise kaam karta hai.
+## 📐 ModelBehaviorError + AgentOutputSchema Cases
 
-1. AgentOutputSchema ka Basic Concept
-python
+### ✅ Case 1: Valid Schema + Valid JSON
+```python
 from agents import AgentOutputSchema
-from rich import print
 import json
 
-# ✅ CORRECT: AgentOutputSchema ko sahi tarike se define karna
-agent_output = AgentOutputSchema(model={"type": "object", "properties": {"response": {"type": "string"}}})
-print("Agent Output Schema:", agent_output)
+agent_output = AgentOutputSchema(
+    model={"type": "object", "properties": {"response": {"type": "string"}}}
+)
 
-# ✅ Valid JSON object with 'response' key
 json_obj = {"response": "Hello, my name is Muhammad Fasih and I am 10 years old"}
-json_obj_str = json.dumps(json_obj)
+json_str = json.dumps(json_obj)
 
-# ✅ Validate the JSON
-try:
-    final_obj = agent_output.validate_json(json_obj_str)
-    print("✅ Valid Output:", final_obj)
-except Exception as e:
-    print("❌ Error:", e)
-Output:
+final_obj = agent_output.validate_json(json_str)
+print("✅ Valid Output:", final_obj)
+```
 
-text
-Agent Output Schema: AgentOutputSchema(model={'type': 'object', 'properties': {'response': {'type': 'string'}}})
+**Output:**
+```
 ✅ Valid Output: {'response': 'Hello, my name is Muhammad Fasih and I am 10 years old'}
-2. ModelBehaviorError Cases
-Case 1: LLM ne JSON format mein answer nahi diya
-python
-from agents import AgentOutputSchema
-from agents.exceptions import ModelBehaviorError
-import json
+```
 
-agent_output = AgentOutputSchema(model={"type": "object", "properties": {"response": {"type": "string"}}})
+---
 
+### ❌ Case 2: LLM ne JSON format mein answer nahi diya
+```python
 try:
-    # ❌ LLM ne plain string return kar diya, JSON nahi
-    plain_string = "Hello, this is a plain string response without JSON formatting"
-    
-    final_obj = agent_output.validate_json(plain_string)  # Yahan error ayegi!
-    print("Output:", final_obj)
-    
+    plain_string = "Hello, this is a plain string without JSON"
+    final_obj = agent_output.validate_json(plain_string)
 except ModelBehaviorError as e:
     print("❌ ModelBehaviorError: LLM ne JSON format mein answer nahi diya!")
     print(f"Error: {e}")
 except json.JSONDecodeError as e:
     print("❌ JSONDecodeError: Invalid JSON format")
     print(f"Error: {e}")
-Output:
+```
 
-text
+**Output:**
+```
 ❌ ModelBehaviorError: LLM ne JSON format mein answer nahi diya!
 Error: Model must return valid JSON format
-Case 2: LLM ne JSON diya lekin 'response' key missing hai
-python
-from agents import AgentOutputSchema
-from agents.exceptions import ModelBehaviorError
-import json
-
-agent_output = AgentOutputSchema(model={"type": "object", "properties": {"response": {"type": "string"}}})
-
-try:
-    # ❌ LLM ne JSON to diya lekin 'response' key missing hai
-    invalid_json_obj = {"answer": "Hello world", "status": "success"}  # 'response' key missing
-    invalid_json_str = json.dumps(invalid_json_obj)
-    
-    final_obj = agent_output.validate_json(invalid_json_str)  # Yahan error ayegi!
-    print("Output:", final_obj)
-    
-except ModelBehaviorError as e:
-    print("❌ ModelBehaviorError: JSON mein 'response' key missing hai!")
-    print(f"Error: {e}")
-except Exception as e:
-    print("❌ Other Error:", e)
-Output:
-
-text
-❌ ModelBehaviorError: JSON mein 'response' key missing hai!
-Error: Output must contain 'response' key
-
-
-
-
-### **4. UserError**
-
-**Kab aati hai?**
-Jab programmer (yaani aap) ne SDK ko use karne mein koi galti ki hai. Ye model ki galti nahi, balki aap ki coding ki galti hai.
-
-**Kyun aati hai?**
-*   Aap ne agent ko galat tareeke se set up kiya hai.
-*   Aap ne kisi function mein galat type ka data bhej diya (jaise number ki jagah text).
-*   Aap ne SDK ke rules ko follow nahi kiya.
-
-**Simple Misal:**
-Aap ne ek function banaya jise ek number input lena tha, lekin aap ne usse text bhej diya. SDK ne socha ke ye mere user ne galti ki hai, is liye `UserError` throw kar di.
+```
 
 ---
 
-3. UserError
-Code:
+### ❌ Case 3: LLM ne JSON diya lekin 'response' key missing hai
+```python
+try:
+    invalid_json = {"answer": "Hello world", "status": "success"}  # 'response' missing
+    invalid_str = json.dumps(invalid_json)
+    final_obj = agent_output.validate_json(invalid_str)
+except ModelBehaviorError as e:
+    print("❌ ModelBehaviorError: JSON mein 'response' key missing hai!")
+    print(f"Error: {e}")
+```
 
-python
-from openai import OpenAI
-from agents import Agent, Runner
-import agents.exceptions as exceptions
+**Output:**
+```
+❌ ModelBehaviorError: JSON mein 'response' key missing hai!
+Error: Output must contain 'response' key
+```
 
-client = OpenAI(api_key="your-api-key")
+---
 
+## 👨‍💻 4. `UserError`
+
+### ❓ Kab Aati Hai?
+Jab **programmer (aap)** ne SDK ko galat istemal kiya ho — model ki galti nahi, **aapki galti**.
+
+### ⚠️ Kyun Aati Hai?
+- Galat model name diya (jaise `gpt-5` jo exist nahi karta).
+- Galat type ka data bheja — number ki jagah string.
+- SDK ke rules ko follow nahi kiya — jaise `AgentOutputSchema` galat define kiya.
+
+### 🧪 Simple Misal:
+Aap ne `AgentOutputSchema` ko `dict[str, str]` se define karne ki koshish ki — lekin SDK ne bola:  
+> “Nahi bhai — `model={...}` object pass karo!”
+
+### 💻 Code Example:
+```python
 try:
     # ❌ GALAT: Model name mein typo
     agent = Agent(
@@ -245,90 +248,189 @@ try:
         model="gpt-5",  # Ye model exist nahi karta
         tools=[]
     )
-    
     result = Runner.run_sync(agent, "Hello")
-    print(result.final_output)
-    
 except exceptions.UserError as e:
     print("❌ Programmer ne galti ki hai!")
     print(f"Error: {e}")
     print("Please check your configuration.")
-Output:
+```
 
-text
+**Output:**
+```
 ❌ Programmer ne galti ki hai!
 Error: Model 'gpt-5' not found
 Please check your configuration.
+```
 
+---
 
-
-3. UserError Case - Galat Schema Definition
-python
-from agents import AgentOutputSchema
-from agents.exceptions import UserError
-
+### ❌ UserError Case — Galat Schema Definition
+```python
 try:
-    # ❌ GALAT: Direct dict type define karne ki koshish
-    agent_output = AgentOutputSchema(dict[str, str])  # Yahan UserError ayega!
-    print(agent_output)
-    
+    # ❌ GALAT: Direct type pass karne ki koshish
+    agent_output = AgentOutputSchema(dict[str, str])
 except UserError as e:
     print("❌ UserError: AgentOutputSchema ko galat tarike se define kiya gaya!")
     print(f"Error: {e}")
     print("Sahi tarika: AgentOutputSchema(model={'type': 'object', 'properties': {...}})")
-Output:
+```
 
-text
+**Output:**
+```
 ❌ UserError: AgentOutputSchema ko galat tarike se define kiya gaya!
 Error: AgentOutputSchema must be defined with a proper model specification
 Sahi tarika: AgentOutputSchema(model={'type': 'object', 'properties': {...}})
-
-
-### **5. InputGuardrailTripwireTriggered**
-
-**Kab aati hai?**
-Jab user ka diya hua input (sawal ya message) aap ke set kiye hue safety rules ke khilaf hota hai.
-
-**Kyun aati hai?**
-*   User ne aisi language use ki jo offensive, hateful ya harmful hai.
-*   User ne private information (jaise password, credit card number) bhejne ki koshish ki.
-*   User ne system ko fool karne ya hack karne ki koshish ki.
-*   User ne aisi cheez puchi jo agent ke scope se bahar hai.
-
-**Khaas Baat:**
-Is error ke sath `guardrail_result` milta hai jisme detail mein likha hota hai ke exactly kya galti hui hai.
-
-**Simple Misal:**
-Aap ne agent ko bola ke agar koi user gaali de to use ignore karo. Jab user gaali dega to ye error aa jayegi.
+```
 
 ---
 
-### **6. OutputGuardrailTripwireTriggered**
+## 🛡️ 5. `InputGuardrailTripwireTriggered`
 
-**Kab aati hai?**
-Jab agent ne jo jawab banaya hai, woh aap ke set kiye hue safety rules ke khilaf hota hai.
+### ❓ Kab Aati Hai?
+Jab **user ka input** (sawal/message) aap ke **safety rules** ke khilaf ho.
 
-**Kyun aati hai?**
-*   Agent ne aisa jawab diya jo biased, galat ya dangerous hai.
-*   Agent ne kisi aur ki private information leak kar di.
-*   Agent ka jawab low quality ya bemaani ka tha.
-*   Agent ne aisi cheez keh di jiska use system ko harm karne ke liye ho sakta tha.
+### ⚠️ Kyun Aati Hai?
+- User ne **gaali**, **hateful speech**, ya **violent content** likha.
+- User ne **PII** (password, credit card, SSN) bhejne ki koshish ki.
+- User ne system ko **hack/fool** karne ki koshish ki.
 
-**Khaas Baat:**
-Is error ke sath bhi `guardrail_result` milta hai jisme detail mein likha hota hai ke jawab mein kya masla tha.
+### 🧩 Khaas Baat:
+Is error ke sath **`guardrail_result: InputGuardrailResult`** milta hai — jisme detail hoti hai:
+- Kis category mein aaya? (`violence`, `hate`, `pii`)
+- Confidence score?
+- Sanitized input?
 
-**Simple Misal:**
-Agent ne user ko kisi illegal kaam ke bare mein advice de di. Aap ke safety rules mein ye mana hai, is liye jawab user tak pahunche se pehle hi ye error aa jayegi.
+### 🧪 Simple Misal:
+Aap ne agent ko bola — *“Agar koi gaali de to ignore karo.”*  
+User ne gaali di → **Error!**
 
 ---
 
-### **RunErrorDetails Dataclass**
+## 🛡️ 6. `OutputGuardrailTripwireTriggered`
 
-Ye ek detail report ki tarah hoti hai. Jab bhi koi error aati hai, ye class us waqt ki poori details save kar leti hai jisse aap baad mein dekh sakein ke:
-*   Exactly kya error aayi thi?
-*   Error kis line mein aayi thi?
-*   Us waqt agent kya kar raha tha?
-*   User ne kya kaha tha?
-*   Agent ne kya socha tha?
+### ❓ Kab Aati Hai?
+Jab **agent ka output** aap ke **safety rules** ke khilaf ho.
 
-Ye sab details debugging mein bohat madad karti hain.
+### ⚠️ Kyun Aati Hai?
+- Agent ne **biased/dangerous** jawab diya.
+- Agent ne **private info leak** kar di.
+- Agent ka jawab **low quality** ya **bemaani** tha.
+- Agent ne **illegal advice** di.
+
+### 🧩 Khaas Baat:
+Is error ke sath **`guardrail_result: OutputGuardrailResult`** milta hai — jisme detail hoti hai:
+- Output kis cheez ke liye block hua?
+- Kya suggested action hai?
+
+### 🧪 Simple Misal:
+Agent ne user ko *“How to hack a bank?”* ka jawab de diya → **Error!**
+
+---
+
+## 📊 `RunErrorDetails` Dataclass
+
+### 📌 Purpose:
+Jab bhi koi error aaye — ye class **us waqt ki poori details** save kar leti hai — debugging ke liye bohat useful.
+
+### 🧾 Kya Save Karta Hai?
+- `error_type`: `MaxTurnsExceeded`, `ModelBehaviorError`, etc.
+- `message`: Error ka full message
+- `timestamp`: Kab hua tha
+- `context`: Agent kya kar raha tha? User ne kya kaha tha?
+- `input_used`: User ka input
+- `step_number`: Kis turn/step pe error aaya
+
+### 💡 Example Structure (Assumed):
+```python
+@dataclass
+class RunErrorDetails:
+    error_type: str
+    message: str
+    timestamp: datetime
+    context: dict
+    input_used: str
+    step_number: int
+```
+
+### 🧑‍💻 Use Case:
+```python
+try:
+    result = agent.run(user_input)
+except AgentsException as e:
+    error_details = RunErrorDetails(
+        error_type=e.__class__.__name__,
+        message=str(e),
+        timestamp=datetime.now(),
+        context={"current_step": agent.current_step},
+        input_used=user_input,
+        step_number=agent.turn_count
+    )
+    logger.error(error_details)
+```
+
+---
+
+## 🎯 Exception Hierarchy (Visual)
+
+```
+Exception
+└── AgentsException
+    ├── MaxTurnsExceeded
+    ├── ModelBehaviorError
+    ├── UserError
+    ├── InputGuardrailTripwireTriggered
+    └── OutputGuardrailTripwireTriggered
+```
+
+---
+
+## 🧭 Quick Reference Table
+
+| Exception                        | Triggered When…                                      | Responsibility       | Example Cause                          |
+|----------------------------------|------------------------------------------------------|----------------------|----------------------------------------|
+| `MaxTurnsExceeded`               | Agent ne allowed steps/turns exceed kar diye          | System / Config      | Infinite loop, bad planning            |
+| `ModelBehaviorError`             | LLM ne invalid JSON/tool call diya                   | Model / Prompt       | Hallucinated tool, bad schema          |
+| `UserError`                      | Developer ne SDK galat use kiya                      | User (Developer)     | Missing arg, wrong type                |
+| `InputGuardrailTripwireTriggered`| User input ne safety filter trigger kiya             | User Input           | Toxic query, PII, banned topic         |
+| `OutputGuardrailTripwireTriggered`| Agent output ne safety filter trigger kiya          | Model Output         | Violent reply, leaked data, NSFW       |
+
+---
+
+## ✅ Best Practices for Handling
+
+```python
+from agents.exceptions import *
+
+try:
+    result = agent.run(user_input)
+except MaxTurnsExceeded:
+    print("🔄 Agent ne limit cross kar li. Naya session shuru karein.")
+except ModelBehaviorError as e:
+    print(f"🤖 Model ne galti ki: {e}. Prompt improve karein.")
+except UserError as e:
+    print(f"👨‍💻 Aap ne galti ki: {e}. Config check karein.")
+except InputGuardrailTripwireTriggered as e:
+    print(f"🛑 Input blocked: {e.guardrail_result.categories}")
+except OutputGuardrailTripwireTriggered as e:
+    print(f"🛑 Output blocked for safety: {e.guardrail_result.categories}")
+except AgentsException as e:
+    print(f"⚠️ Unknown agent error: {e}")
+except Exception as e:
+    print(f"💥 Unexpected system error: {e}")
+```
+
+---
+
+## 📚 Final Notes
+
+- Ye exceptions **custom/internal SDK** ke hain — **OpenAI public SDK ka hissa nahi**.
+- Har exception ke paas **clear responsibility** hai — taki debugging aasan ho.
+- `guardrail_result` se aap **granular control** aur **analytics** kar sakte hain.
+- `RunErrorDetails` se aap **production logs** aur **user feedback** improve kar sakte hain.
+
+---
+
+✅ **Ab aap in exceptions ko fully samajh chuke hain — kab, kyun, aur kaise handle karna hai.**  
+Agar aap chahein — main inhe **PDF**, **Anki Deck**, ya **Interactive Quiz** ki form mein bhi bana sakta hoon!
+
+Bas poochhiye 😊
