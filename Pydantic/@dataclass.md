@@ -1,12 +1,12 @@
 
 
-# 📘 Python `@dataclass` vs `pydantic.dataclasses.dataclass`
+📘 Python @dataclass vs pydantic.dataclasses.dataclass
+
 
 ---
 
-## 🔸 Normal Class (bina `@dataclass`)
+🔸 Normal Class (bina @dataclass)
 
-```python
 class Person:
     def __init__(self, name: str, age: int):
         self.name = name
@@ -42,11 +42,11 @@ print(p)   # Person(name='Ali', age=20)
 
 🔹 Fayda kya mila?
 
-Boilerplate code kam ho gaya.
+Boilerplate code kam ho gaya
 
-Sirf attributes likhne hain, baaki sab Python sambhal lega.
+Sirf attributes likhne hain, baaki sab Python sambhal lega
 
-Readable aur clean code banta hai.
+Readable aur clean code banta hai
 
 
 
@@ -54,11 +54,11 @@ Readable aur clean code banta hai.
 
 🔹 Aur Pydantic ka kya role hai?
 
-Normal @dataclass validation nahi karta.
-Agar tum "20" string daal do age me, wo accept kar lega.
+Normal @dataclass validation nahi karta
+(Agar tum "20" string daal do age me, wo accept kar lega)
 
-Lekin pydantic.dataclasses.dataclass validation add kar deta hai.
-Matlab wohi dataclass style, lekin andar se Pydantic ka validation engine use hota hai.
+pydantic.dataclasses.dataclass validation add kar deta hai
+Matlab wohi dataclass style, lekin andar se Pydantic ka validation engine use hota hai
 
 
 
@@ -66,14 +66,11 @@ Matlab wohi dataclass style, lekin andar se Pydantic ka validation engine use ho
 
 👉 Easy way
 
-@dataclass (Python built-in) → Auto __init__, __repr__… but no validation.
+@dataclass (Python built-in) → Auto __init__, __repr__ … but no validation
 
-@pydantic.dataclasses.dataclass → Same auto features + validation (age="20" → int(20), warna error).
+@pydantic.dataclasses.dataclass → Same auto features + validation (age="20" → int(20), warna error)
 
 
----
 
-Ab agar aap isko **VS Code ya GitHub** me open karenge to headings, bullets, aur code blocks ekdum neat aur professional dikhain ge ✅.  
 
-Kya chahte ho mai isme **example of Pydantic dataclass with validation** bhi add kar dun taake side-by-side comparison ho jae?
 
