@@ -1,4 +1,4 @@
-Pydantic v2 Ultimate Mastery Quiz (Difficulty: Very High)
+# Pydantic v2 Ultimate Mastery Quiz 
 1. You are defining a Pydantic model for a user profile. You want to ensure the username field is provided, has a minimum length of 3, and a maximum length of 20. Which of the following Field definitions is CORRECT?
 a) username: str = Field(..., min_length=3, max_length=20)
 b) username: str = Field(min_length=3, max_length=20)
