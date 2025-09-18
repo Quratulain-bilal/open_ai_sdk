@@ -1,4 +1,4 @@
-📘 README: handoff with input_type — Samjhay Roman Urdu Mein
+📘 README: handoff with input_type 
 🔹 1. Handoff kya hota hai?
 Handoff aik method hai jisme aik agent doosray agent ko kaam transfer (pass) karta hai — bilkul tool call jaisa hi hota hai.
 
@@ -128,5 +128,6 @@ Function mein input ho lekin input_type na diya ho	❌ ❗ Error
 
 
 📘 Handoff with input_type –
+
 
 Handoff ka concept bilkul tool call ki tarah kaam karta hai, jismein aik agent doosray agent ko kaam handover karta hai. Jab handoff hota hai, to LLM sirf do cheezein agent ko pass karta hai: aik name (jo us agent ka naam hota hai jisko handoff kiya ja raha hai), aur doosra arguments, jismein input data hota hai. Normally agar aap koi input_type define nahi karte, to arguments empty {} hota hai, aur aapka on_handoff function sirf aik parameter ctx: RunContextWrapper leta hai. Lekin agar aap structured input dena chahte hain — jaise question, topic, name — to aapko ek BaseModel class banana hoti hai (jaise MyInput) aur handoff() function mein input_type=MyInput specify karna hota hai. Is surat mein aapka on_handoff function 2 parameters lega: pehla ctx, aur doosra input: MyInput. Lekin yahan aik important rule hai: agar aap function mein 2 parameters le rahe ho to input_type lazmi define karni hogi, warna UserError aayega. Isi tarah agar aap function mein sirf ctx le rahe ho to input_type nahi deni chahiye, warna phir se UserError aayega. Ye system is liye banaya gaya hai takay LLM se aane wala data type-safe ho, aur agents ko accurately samajh aaye ke unko kya data mila hai aur uss pe kya kaam karna hai. Is tarah handoff with input_type aapko predictable aur structured behavior deta hai jab multiple agents apas mein kaam transfer kar rahe hote hain.
