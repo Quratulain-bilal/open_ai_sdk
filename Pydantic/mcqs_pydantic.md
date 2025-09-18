@@ -433,4 +433,154 @@ d) {'items': ['1', '2', '3']}
 ```
 
 
-
+In Pydantic's default mode, if a field is defined as id: int in a BaseModel, and input data provides "123" as a string, what happens during model instantiation?
+A) It raises a ValidationError immediately, as strings are not integers.
+B) It converts "123" to 123 automatically and proceeds without error.
+C) It converts only if the string is numeric, otherwise stores as string.
+D) It raises an error unless StrictInt is used, which allows conversion.
+When using Field() to set constraints like ge=18 and le=100 for an age field, what exact error type would occur if age=101 is provided?
+A) ValueError with message about exceeding maximum.
+B) ValidationError detailing the field and "greater than or equal" violation.
+C) ValidationError specifying the input should be less than or equal to 100.
+D) TypeError if the input was a string like "101" in lax mode.
+In the example of custom validators with @field_validator("age"), if value=17 is passed, what is the precise exception raised inside the validator?
+A) ValidationError with a custom message "User must be 18+".
+B) ValueError explicitly raised with "User must be 18+".
+C) TypeError if age was not an integer before validation.
+D) AssertionError unless the validator returns the value unmodified.
+For serialization, calling model_dump() on a User model with id=1 and name="Ali" returns a dict. How does model_dump_json() differ in output format?
+A) It returns a JSON string like '{"id":1,"name":"Ali"}'.
+B) It returns a dict but with JSON-compatible types only.
+C) It serializes datetime fields automatically if present.
+D) It excludes None fields by default unless specified.
+In strict mode using StrictInt for field x, why does Model(x="123") fail while Model(x=123) succeeds?
+A) Strict mode disables all type coercion, requiring exact type match.
+B) Lax mode allows coercion, but strict checks for integer subclass only.
+C) StrictInt enforces no conversion from strings, even numeric ones.
+D) It fails in both modes if the field is not annotated with Union[str, int].
+When using aliases like full_name: str = Field(..., alias="fullName"), if data={"fullName": "Ali Khan"}, what attribute access returns "Ali Khan"?
+A) u.full_name, as alias maps input but not output.
+B) u.fullName, since alias overrides the Python attribute.
+C) Both u.full_name and u.fullName, for compatibility.
+D) u.model_dump()["fullName"], but direct access uses full_name.
+In Settings Management with BaseSettings, if debug: bool = False is defined, and no env var is set, what value does s.debug hold after instantiation?
+A) False, as it's the default and env vars are optional.
+B) True, if any env var like DEBUG exists implicitly.
+C) None, unless explicitly set in env or overridden.
+D) Raises error if database_url is missing but debug has default.
+Using pydantic.dataclasses on a standard @dataclass with id: int, if id="123" is passed, what occurs?
+A) Automatic conversion to 123, adding validation to dataclass.
+B) No conversion, as dataclass lacks BaseModel inheritance.
+C) ValidationError unless Field() is used for rules.
+D) Works like BaseModel but without custom validators support.
+Calling User.model_json_schema() on a model with id: int and name: str generates what kind of output?
+A) A dict representing JSON Schema with type validations.
+B) A string of JSON Schema, ready for API documentation.
+C) Includes aliases if defined, but excludes defaults.
+D) Schema for serialization, not for input validation.
+With TypeAdapter(list[int]), validating ["1", 2, 3] returns [1, 2, 3]. What happens if ["1", "two", 3] is passed?
+A) ValidationError for the invalid string "two".
+B) Partial conversion [1, "two", 3] in lax mode.
+C) Full list as strings, ignoring int annotation.
+D) Raises error only if strict mode is enabled on adapter.
+In validation errors, for input id="abc" and name=123, the errors() list contains loc as ["id"] and ["name"]. What msg for "name"?
+A) "Input should be a valid string" since 123 is int.
+B) "Input should be a valid integer" mismatched.
+C) "value is not a valid str" with type details.
+D) Combined error if both fields fail simultaneously.
+Why is Pydantic's core written in Rust mentioned in performance?
+A) For speed in APIs and large data handling.
+B) To enable strict mode without slowdowns.
+C) For better error messages in validation.
+D) To support environment variables natively.
+In models, if signup_ts: datetime | None = None, and data provides "2024-01-01 10:30", it converts to datetime. What if omitted?
+A) Sets to None, as default allows optional.
+B) Raises error unless Field(default=None) is used.
+C) Converts to current datetime implicitly.
+D) Validation passes but attribute is missing.
+For Field(min_length=3, max_length=20) on username, if "Ab" is provided, what error details?
+A) ValidationError: input too short for min_length.
+B) ValueError if custom validator checks length.
+C) TypeError if input is not string first.
+D) Passes if lax mode coerces non-strings.
+Custom validator with @field_validator("age") raises ValueError for <18. If age=18, what does it return?
+A) The value unchanged, as per standard.
+B) Modified value if additional logic present.
+C) None if no return statement executed.
+D) Raises if cls parameter is misused.
+Serialization with model_dump_json() on a model with datetime field outputs ISO format. What if exclude_none=True?
+A) Omits fields with None, but not defaults.
+B) Includes all, as it's not mentioned in content.
+C) Affects dict but not JSON string directly.
+D) Requires alias for None fields.
+Strict vs Lax: In lax, "123" to int works. In strict with StrictInt, it fails. How to enable strict globally?
+A) Not directly; per-field with Strict types.
+B) Via model config for all fields.
+C) Only in BaseSettings, not BaseModel.
+D) By installing pydantic-settings extra.
+Aliases: If alias="fullName" for full_name, data uses "fullName". What if data uses "full_name"?
+A) Fails, as alias strictly maps input key.
+B) Works if lax mode allows key coercion.
+C) Both keys accepted for flexibility.
+D) Uses population by alias config.
+In BaseSettings, database_url: str reads from env. If missing, what happens?
+A) Raises ValidationError for required field.
+B) Uses default if provided, else error.
+C) Sets to empty string for str types.
+D) Optional if =None is added.
+Pydantic dataclass with id: int converts "123" to 123. How does it differ from BaseModel?
+A) Lacks full serialization methods like dump.
+B) Supports validation but no custom validators.
+C) Uses post_init for extra checks.
+D) Identical behavior but lighter weight.
+model_json_schema() output includes "properties" with types. For id: int, it's?
+A) {"type": "integer"} in schema dict.
+B) {"type": "number"} for flexibility.
+C) Includes min/max if Field used.
+D) String schema, not dict.
+TypeAdapter for list[int] coerces strings to ints. If empty list [], validates to?
+A) [], as list can be empty.
+B) Error if min_items not set.
+C) None, treating as optional.
+D) [0] default for int lists.
+Why use Pydantic over plain type hints?
+A) Enforces validation at runtime.
+B) Hints are static, Pydantic dynamic.
+C) Automatic conversion in hints too.
+D) For Rust speed in type checking.
+In recap, BaseModel is for schemas. Field for rules. What subtle link?
+A) Field enhances BaseModel validations.
+B) BaseModel requires Field for all.
+C) Rules optional without Field.
+D) Recap omits strict mode tie-in.
+If User(id="abc"), error loc=["id"], msg="Input should be a valid integer". If id=1.5?
+A) Same msg, as not integer.
+B) "Input should be integer, got float".
+C) Converts to 1 in lax mode.
+D) No error for numeric types.
+Custom validator can modify value. If return value + 1, for age=18 returns?
+A) 19, if logic to modify.
+B) Must return unchanged per guide.
+C) Error if not matching type.
+D) Optional modification allowed.
+Serialization excludes private fields?
+A) No, all defined fields included.
+B) Yes, if _prefix used.
+C) Configurable via model.
+D) Only in JSON, not dict.
+Strict mode for one field, lax for others possible?
+A) Yes, using StrictInt per field.
+B) No, model-wide setting.
+C) Via aliases and validators.
+D) Only in dataclasses.
+Settings Management requires pydantic-settings install. For what?
+A) BaseSettings class usage.
+B) Env var handling in BaseModel.
+C) Optional, core has it.
+D) For debug bool defaults.
+TypeAdapter vs BaseModel for quick validations?
+A) Adapter for non-class types like list.
+B) BaseModel faster for simple.
+C) Adapter lacks schema generation.
+D) Both same for serialization.
+18.4sExpert
