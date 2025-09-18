@@ -1,16 +1,12 @@
 # 📄 **OpenAI Agents SDK – Exceptions & Error Handling (Complete README)**  
-*(Formatted for VS Code / GitHub — Clean, Structured, Developer-Friendly)*
+
 
 ---
 
-> ✅ **Note**: Ye exceptions **OpenAI ka official public SDK** (`pip install openai`) ka hissa **nahi hain** — ye ek **custom/internal Agents SDK** ka hissa hain jo OpenAI models ko “Agent” ke taur pe istemal karta hai.  
-> Official OpenAI SDK exceptions: `APIError`, `RateLimitError`, `AuthenticationError` — [GitHub Link](https://github.com/openai/openai-python)
-
----
 
 ## 🧩 Overview
 
-Ye SDK aapko AI Agents banana aur unhe control karna asaan banata hai — lekin agar kuch galt ho jaye, to ye **custom exceptions** aapko batayenge ke masla kahan hai:  
+  
 - Kya **user** ne galti ki? → `UserError`  
 - Kya **model** ne galti ki? → `ModelBehaviorError`  
 - Kya **safety rules** violate hui? → `Input/OutputGuardrailTripwireTriggered`  
@@ -170,7 +166,7 @@ agent_output = AgentOutputSchema(
     model={"type": "object", "properties": {"response": {"type": "string"}}}
 )
 
-json_obj = {"response": "Hello, my name is Muhammad Fasih and I am 10 years old"}
+json_obj = {"response": "Hello, my name is Muhammad anna and I am 20 years old"}
 json_str = json.dumps(json_obj)
 
 final_obj = agent_output.validate_json(json_str)
@@ -179,7 +175,7 @@ print("✅ Valid Output:", final_obj)
 
 **Output:**
 ```
-✅ Valid Output: {'response': 'Hello, my name is Muhammad Fasih and I am 10 years old'}
+✅ Valid Output: {'response': 'Hello, my name is anna and I am 20 years old'}
 ```
 
 ---
@@ -340,35 +336,9 @@ Jab bhi koi error aaye — ye class **us waqt ki poori details** save kar leti h
 - `input_used`: User ka input
 - `step_number`: Kis turn/step pe error aaya
 
-### 💡 Example Structure (Assumed):
-```python
-@dataclass
-class RunErrorDetails:
-    error_type: str
-    message: str
-    timestamp: datetime
-    context: dict
-    input_used: str
-    step_number: int
-```
 
-### 🧑‍💻 Use Case:
-```python
-try:
-    result = agent.run(user_input)
-except AgentsException as e:
-    error_details = RunErrorDetails(
-        error_type=e.__class__.__name__,
-        message=str(e),
-        timestamp=datetime.now(),
-        context={"current_step": agent.current_step},
-        input_used=user_input,
-        step_number=agent.turn_count
-    )
-    logger.error(error_details)
-```
 
----
+
 
 ## 🎯 Exception Hierarchy (Visual)
 
@@ -394,43 +364,4 @@ Exception
 | `InputGuardrailTripwireTriggered`| User input ne safety filter trigger kiya             | User Input           | Toxic query, PII, banned topic         |
 | `OutputGuardrailTripwireTriggered`| Agent output ne safety filter trigger kiya          | Model Output         | Violent reply, leaked data, NSFW       |
 
----
 
-## ✅ Best Practices for Handling
-
-```python
-from agents.exceptions import *
-
-try:
-    result = agent.run(user_input)
-except MaxTurnsExceeded:
-    print("🔄 Agent ne limit cross kar li. Naya session shuru karein.")
-except ModelBehaviorError as e:
-    print(f"🤖 Model ne galti ki: {e}. Prompt improve karein.")
-except UserError as e:
-    print(f"👨‍💻 Aap ne galti ki: {e}. Config check karein.")
-except InputGuardrailTripwireTriggered as e:
-    print(f"🛑 Input blocked: {e.guardrail_result.categories}")
-except OutputGuardrailTripwireTriggered as e:
-    print(f"🛑 Output blocked for safety: {e.guardrail_result.categories}")
-except AgentsException as e:
-    print(f"⚠️ Unknown agent error: {e}")
-except Exception as e:
-    print(f"💥 Unexpected system error: {e}")
-```
-
----
-
-## 📚 Final Notes
-
-- Ye exceptions **custom/internal SDK** ke hain — **OpenAI public SDK ka hissa nahi**.
-- Har exception ke paas **clear responsibility** hai — taki debugging aasan ho.
-- `guardrail_result` se aap **granular control** aur **analytics** kar sakte hain.
-- `RunErrorDetails` se aap **production logs** aur **user feedback** improve kar sakte hain.
-
----
-
-✅ **Ab aap in exceptions ko fully samajh chuke hain — kab, kyun, aur kaise handle karna hai.**  
-Agar aap chahein — main inhe **PDF**, **Anki Deck**, ya **Interactive Quiz** ki form mein bhi bana sakta hoon!
-
-Bas poochhiye 😊
