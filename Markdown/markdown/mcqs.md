@@ -135,19 +135,7 @@ d) Use HTML lists (`<ul>`, `<ol>`, `<li>`) for absolute control.
 e) Both c and d are valid best practices for complex scenarios.
 ```
 
----
 
-## ✅ Answer Key
-
-| Q  | Answer | Q  | Answer |
-|----|--------|----|--------|
-| 1  | c      | 6  | a      |
-| 2  | c      | 7  | b      |
-| 3  | d      | 8  | c      |
-| 4  | a      | 9  | d      |
-| 5  | c      | 10 | e      |
-
----
 
 ## 📚 Detailed Explanations
 
@@ -261,19 +249,4 @@ e) Both c and d are valid best practices for complex scenarios.
 
 ---
 
-## 🎯 Final Tips for Experts
 
-- Use `![Alt](src "tooltip")` for image tooltips.
-- Use `[![Alt](src)](url "tooltip")` for clickable image tooltips — tooltip goes on link.
-- Indentation > bullet character for nested lists.
-- Use HTML `<ol start="X">` for interrupted numbered lists.
-- Test complex lists in your target platform — **GitHub Flavored Markdown ≠ CommonMark ≠ VS Code**.
-
----
-
-✅ **You’ve conquered Level 100 Markdown!**  
-Perfect for technical interviews, documentation teams, or certification prep.
-
----
-
-> 💡 *Want this as a PDF, Anki deck, or interactive quiz? Just ask!*
