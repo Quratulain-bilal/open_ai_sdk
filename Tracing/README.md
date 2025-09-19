@@ -89,44 +89,93 @@ TranscriptionSpanData / SpeechSpanData → Audio steps
 
 5. Logic: Traces inside Traces (Nested Tracing)
 
-Kabhi ek trace ke andar aur trace dikhana zaroori hota hai.
-👉 Example: Ek e-commerce agent workflow:
+6. 
+🔄 Default Behavior
 
-1. User query aaya → Trace: CheckoutWorkflow
+SDK jab aap Runner.run() chalate ho → ek trace ban jata hai.
 
-
-2. Inside this workflow:
-
-Span: Validate cart
-
-Span: Apply discount code
-
-Span: Payment process
-
-Iske andar ek sub-trace bana sakte ho (PaymentGatewayTrace)
-
-Span: Card validation
-
-Span: Fraud check
-
-Span: Payment confirmation
-
-
-
-
-
-
-🔑 Rule of thumb:
-
-Agar step independent aur complex workflow hai → use a new trace.
-
-Agar step workflow ka part hai → keep it as a span.
+Us trace ke andar automatically spans create ho jaate hain (LLM call, tool, guardrail, handoff).
+👉 Matlab by default: Trace → multiple spans, but sirf ek root trace hota hai.
 
 
 
 ---
 
-6. Default vs Custom Tracing
+🧩 Custom Multiple / Nested Traces
+
+Agar aap chahte ho:
+
+1. Ek hi session ke andar multiple traces (parallel workflows).
+
+
+2. Ek trace ke andar sub-traces (nested workflows).
+
+
+
+To aapko with trace() ka use karna hoga.
+
+
+---
+
+1. Multiple Traces (Independent Workflows)
+
+# Workflow 1
+with trace("JokeWorkflow"):
+    joke = await runner.run(agent, "Tell me a joke")
+
+# Workflow 2
+with trace("RatingWorkflow"):
+    rating = await runner.run(agent, f"Rate this joke: {joke.final_output}")
+
+➡️ Yahaan dono alag-alag traces banenge (JokeWorkflow aur RatingWorkflow).
+Ye ek dusre ke andar nahi hain — independent workflows hain.
+
+
+---
+
+2. Nested Traces (Trace inside Trace)
+
+with trace("ParentWorkflow") as parent:
+    # Parent trace ke andar ek agent run
+    result1 = await runner.run(agent, "Generate a story")
+
+    # Ab ek nested trace start karte hain
+    with trace("ChildWorkflow", parent_id=parent.id):
+        result2 = await runner.run(agent, f"Summarize this story: {result1.final_output}")
+
+➡️ Yahaan:
+
+ParentWorkflow = root trace
+
+ChildWorkflow = nested trace (linked via parent_id)
+
+Iska fayda = monitoring dashboards mein aapko dikhega ke ek workflow ke andar dusra workflow hua.
+
+
+
+---
+
+3. Rule of Thumb (Professional Logic)
+
+Use single trace → agar aapko ek hi workflow track karna hai.
+
+Use multiple traces → agar aapko alag workflows ko separate dekhna hai (har ek apna root trace banayega).
+
+Use nested traces → agar ek workflow ke andar ek complex sub-workflow hai (jiska apna detail chahiye).
+
+
+Example:
+
+Trace: OrderWorkflow
+
+Span: Validate Cart
+
+Span: Apply Discount
+
+Nested Trace: PaymentWorkflow (child trace with its own spans)
+
+
+7. Default vs Custom Tracing
 
 ✅ Default (SDK automatically generates):
 
