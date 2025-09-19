@@ -1,12 +1,8 @@
-Perfect ✅ aap chahte ho ke main aapko Tracing in OpenAI SDK ka ek professional aur logical conceptual guide bana kar doon jo ekdum structured ho — jismein practical + theoretical dono cheezein hoon. Yahaan pe main ek developer-oriented documentation style guide bana raha hoon.
 
-
----
 
 🔍 Professional Guide: Tracing in OpenAI SDK
 
 
----
 
 1. What is Tracing?
 
