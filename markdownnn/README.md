@@ -3,7 +3,7 @@
 
 Ye ek alag paragraph hai jo list ko tod raha hai.
 
-<ol start="3">
-  <li>Teesra item</li>
-  <li>Choutha item</li>
-</ol>
+
+3.Teesra item
+4.Choutha item
+
