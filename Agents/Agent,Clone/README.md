@@ -5,7 +5,7 @@
  What Is Agent Cloning?
 
 
-OFFICIAL_DOCUMENTATION
+
 
 By using the clone() method on an agent, you can duplicate an Agent, and optionally change any properties you like.
 
